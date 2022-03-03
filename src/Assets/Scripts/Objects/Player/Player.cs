@@ -7,8 +7,9 @@ public class Player : Entity
     public Attack baseAttack;
     private PlayerSkill skill1, skill2, skill3;
     public List<Attack> skills = new List<Attack>();
+    private bool isBossFight;
 
-    public Player(int maxhp, int hp, int strength, int agility, int mana, int defense, HealthBar healthbar)
+    public Player(int maxhp, int hp, int strength, int agility, int mana, int defense, HealthBar healthbar, bool isBossFight)
     {
         this.maxhp = maxhp;
         this.hp = hp;
@@ -21,9 +22,19 @@ public class Player : Entity
         skill1 = new FeelGood();
         skill2 = new EveryoneHurts();
         skill3 = new AllDemDamage();
-        UIManager.uiManager.SetSkillIcon(1, skill1.GetIcon());
-        UIManager.uiManager.SetSkillIcon(2, skill2.GetIcon());
-        UIManager.uiManager.SetSkillIcon(3, skill3.GetIcon());
+        this.isBossFight = isBossFight;
+        if (this.isBossFight)
+        {
+            BossUIManager.uiManager.SetSkillIcon(1, skill1.GetIcon());
+            BossUIManager.uiManager.SetSkillIcon(2, skill2.GetIcon());
+            BossUIManager.uiManager.SetSkillIcon(3, skill3.GetIcon());
+        }
+        else
+        {
+            UIManager.uiManager.SetSkillIcon(1, skill1.GetIcon());
+            UIManager.uiManager.SetSkillIcon(2, skill2.GetIcon());
+            UIManager.uiManager.SetSkillIcon(3, skill3.GetIcon());
+        }
         healthbar.SetMaxHealth(maxhp);
         healthbar.SetHealth(hp);
         atb = 0;
@@ -38,7 +49,14 @@ public class Player : Entity
             Die();
         }
         healthbar.SetHealth(hp);
-        UIManager.uiManager.StartShake();
+        if (isBossFight)
+        {
+            BossUIManager.uiManager.StartShake();
+        }
+        else
+        {
+            UIManager.uiManager.StartShake();
+        }
     }
 
     public override float CalculateAttack()
@@ -55,7 +73,14 @@ public class Player : Entity
     {
         atb -= amount;
         RhythmManager.rManager.SetATB(atb);
-        UIManager.uiManager.UpdateATBNumber(atb, atb + amount);
+        if (isBossFight)
+        {
+            BossUIManager.uiManager.UpdateATBNumber(atb, atb + amount);
+        }
+        else
+        {
+            UIManager.uiManager.UpdateATBNumber(atb, atb + amount);
+        }
     }
     
     public void UseSkill(int number)

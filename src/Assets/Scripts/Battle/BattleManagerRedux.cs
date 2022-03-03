@@ -24,7 +24,7 @@ public class BattleManagerRedux : MonoBehaviour
         bManager = this;
         rControls = new RhythmControls();
         isCombat = false;
-        player = new Player(250, 250, 15, 10, 32, 12, playerhealth);
+        player = new Player(250, 250, 15, 10, 32, 12, playerhealth, false);
         targetIndex = 0;
         rControls.Battle.Attack.performed += PerformAttack;
         rControls.Battle.Run.performed += RunAway;
@@ -36,14 +36,6 @@ public class BattleManagerRedux : MonoBehaviour
         rControls.Battle.Skill3.performed += UseSkill3;
         rControls.Battle.SkillBack.performed += BackSkills;
         SpawnEnemies();
-    }
-
-    private void Start()
-    {
-        for (int x = 0; x < enemies.Count; x++)
-        {
-            Enemy enemy = (Enemy)enemies[x];
-        }
     }
 
     private void EnableDefaultControls()

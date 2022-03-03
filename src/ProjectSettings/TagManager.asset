@@ -8,6 +8,8 @@ TagManager:
   - Missed
   - Early
   - Enemy
+  - BossActivator
+  - BossMissed
   layers:
   - Default
   - TransparentFX
