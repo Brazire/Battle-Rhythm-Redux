@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
-using System.Collections;
-using static PermManager;
 
 public class PlayerMovement : MonoBehaviour {
 	
@@ -10,18 +7,22 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField]
 	private Animator animator;
+	private RhythmControls rControls;
 
-	void Start () {
+	void Awake () {
 		Debug.Log("Starting movement");
-	}
+		rControls = new RhythmControls();
 
+		rControls.World.Horizontal.Enable();
+		rControls.World.Vertical.Enable();
+	}
+	
 	void FixedUpdate () {
 
 		// Set lastest player position
-		
 
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+		float moveHorizontal = rControls.World.Horizontal.ReadValue<float>();
+		float moveVertical = rControls.World.Vertical.ReadValue<float>();
 
 		Vector2 currentVelocity = gameObject.GetComponent<Rigidbody2D> ().velocity;
 
@@ -36,8 +37,6 @@ public class PlayerMovement : MonoBehaviour {
 			animator.SetInteger ("DirectionX", 0);
 		}
 
-
-
 		float newVelocityY = 0f;
 		if (moveVertical < 0 && currentVelocity.y <= 0) {
 			newVelocityY = -speed - 150;
@@ -50,9 +49,5 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (newVelocityX, newVelocityY);
-
 	}
-
-	
-
 }
