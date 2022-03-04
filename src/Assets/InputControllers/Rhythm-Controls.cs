@@ -713,6 +713,373 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""World"",
+            ""id"": ""63ce7f9d-3841-4dee-a3a7-946e5fe6c065"",
+            ""actions"": [
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcad9745-984c-41df-803f-524b581b0e7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interraction"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb22dd5d-b219-4ccc-9c7a-41890d36d8c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4430f05-e756-4b6e-80b7-04e6c7c44575"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Horizontal"",
+                    ""type"": ""Button"",
+                    ""id"": ""219caf47-3a87-41be-8e93-0163479bbcc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Vertical"",
+                    ""type"": ""Button"",
+                    ""id"": ""0597df54-2951-447f-91d2-a09fe665c2c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""654d4832-f525-4312-a0e3-f565750f99db"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28b823cf-3ee1-48b0-9204-770a7c7e3e9f"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2220dcda-fa96-4504-b202-dafa4b943d66"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4d0fe47-4ecd-498b-aa4f-e67014778be5"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""235bf775-41cc-496b-99fd-1f60dcc25561"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""93aeddc7-ca30-40ab-b901-e28f533d7701"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Negative"",
+                    ""id"": ""f4db314f-9e5a-4361-b4fd-9d96f003a69a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Positive"",
+                    ""id"": ""425d5e63-e594-4584-bba5-8b6b75793a25"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow"",
+                    ""id"": ""81a0d0da-dc2f-4cf1-a4d9-d4caf97aa2d0"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""72dbd7cb-0fc2-4df7-b713-925961520826"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""dc5bab8c-1f46-4815-bbdc-8cf1dbb0d51a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""GamePad"",
+                    ""id"": ""bd7a2b11-f9d1-45dc-83b7-996a8e13ba5b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f54e18ca-f654-4a7c-b77e-c8afc88f3018"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""628d2521-e2b5-4e61-885f-55d027b9bb9a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""D-Pad"",
+                    ""id"": ""22358332-a11a-4f97-a0e8-5f2f5cf9a3de"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""ec77215a-93c9-4db7-afe1-ac09ad33a1ea"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""13befec2-0fe9-48ed-9e77-b7b97403016d"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""7e7d77e1-53c0-4737-9c30-56247c3f98f9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f03aa332-7a75-4964-9604-8ac1c0e64211"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""c81836b9-d951-4592-9708-f9c8f2fc75bd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow"",
+                    ""id"": ""cca05ab0-724e-4148-a3ab-5b984c13d72a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4490c2f5-1707-42de-8abd-20ba2d0757c9"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f99480da-b472-4f01-9d64-22d2a1255595"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""52310d40-3394-499c-965a-536bcbca0133"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8bc9a402-89ef-4006-959a-7d6a93bb5809"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ff4de53b-e7d3-48db-abff-8cebae91231f"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""D-Pad"",
+                    ""id"": ""94741d52-7314-48d2-a0cc-dc8ee68db569"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d62700d6-8b6a-41ee-b0a1-c34ac3ab1948"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""3c9c14ef-252c-434d-b008-9a2cde619562"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -735,6 +1102,13 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         m_Battle_Skill2 = m_Battle.FindAction("Skill2", throwIfNotFound: true);
         m_Battle_Skill3 = m_Battle.FindAction("Skill3", throwIfNotFound: true);
         m_Battle_SkillBack = m_Battle.FindAction("SkillBack", throwIfNotFound: true);
+        // World
+        m_World = asset.FindActionMap("World", throwIfNotFound: true);
+        m_World_Inventory = m_World.FindAction("Inventory", throwIfNotFound: true);
+        m_World_Interraction = m_World.FindAction("Interraction", throwIfNotFound: true);
+        m_World_Shop = m_World.FindAction("Shop", throwIfNotFound: true);
+        m_World_Horizontal = m_World.FindAction("Horizontal", throwIfNotFound: true);
+        m_World_Vertical = m_World.FindAction("Vertical", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -942,6 +1316,71 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         }
     }
     public BattleActions @Battle => new BattleActions(this);
+
+    // World
+    private readonly InputActionMap m_World;
+    private IWorldActions m_WorldActionsCallbackInterface;
+    private readonly InputAction m_World_Inventory;
+    private readonly InputAction m_World_Interraction;
+    private readonly InputAction m_World_Shop;
+    private readonly InputAction m_World_Horizontal;
+    private readonly InputAction m_World_Vertical;
+    public struct WorldActions
+    {
+        private @RhythmControls m_Wrapper;
+        public WorldActions(@RhythmControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Inventory => m_Wrapper.m_World_Inventory;
+        public InputAction @Interraction => m_Wrapper.m_World_Interraction;
+        public InputAction @Shop => m_Wrapper.m_World_Shop;
+        public InputAction @Horizontal => m_Wrapper.m_World_Horizontal;
+        public InputAction @Vertical => m_Wrapper.m_World_Vertical;
+        public InputActionMap Get() { return m_Wrapper.m_World; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WorldActions set) { return set.Get(); }
+        public void SetCallbacks(IWorldActions instance)
+        {
+            if (m_Wrapper.m_WorldActionsCallbackInterface != null)
+            {
+                @Inventory.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnInventory;
+                @Interraction.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
+                @Interraction.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
+                @Interraction.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
+                @Shop.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
+                @Shop.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
+                @Shop.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
+                @Horizontal.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
+                @Horizontal.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
+                @Horizontal.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
+                @Vertical.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
+                @Vertical.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
+                @Vertical.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
+            }
+            m_Wrapper.m_WorldActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
+                @Interraction.started += instance.OnInterraction;
+                @Interraction.performed += instance.OnInterraction;
+                @Interraction.canceled += instance.OnInterraction;
+                @Shop.started += instance.OnShop;
+                @Shop.performed += instance.OnShop;
+                @Shop.canceled += instance.OnShop;
+                @Horizontal.started += instance.OnHorizontal;
+                @Horizontal.performed += instance.OnHorizontal;
+                @Horizontal.canceled += instance.OnHorizontal;
+                @Vertical.started += instance.OnVertical;
+                @Vertical.performed += instance.OnVertical;
+                @Vertical.canceled += instance.OnVertical;
+            }
+        }
+    }
+    public WorldActions @World => new WorldActions(this);
     public interface IRhythmActions
     {
         void OnLeft(InputAction.CallbackContext context);
@@ -961,5 +1400,13 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
         void OnSkillBack(InputAction.CallbackContext context);
+    }
+    public interface IWorldActions
+    {
+        void OnInventory(InputAction.CallbackContext context);
+        void OnInterraction(InputAction.CallbackContext context);
+        void OnShop(InputAction.CallbackContext context);
+        void OnHorizontal(InputAction.CallbackContext context);
+        void OnVertical(InputAction.CallbackContext context);
     }
 }
