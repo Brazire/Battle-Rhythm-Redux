@@ -56,7 +56,14 @@ public class BPNoteObj : MonoBehaviour
 
     private void NotifyHit()
     {
-        BossRhythmManager.brManager.NoteHit();
+        if (ShowOffManager.soManager.IsShowingOff())
+        {
+            ShowOffManager.soManager.NotifyHit();
+        }
+        else
+        {
+            BossRhythmManager.brManager.NoteHit();
+        }
         DestroyNote();
     }
 
@@ -68,7 +75,14 @@ public class BPNoteObj : MonoBehaviour
 
     private void NotifyMissed()
     {
-        BossRhythmManager.brManager.NoteMissed();
+        if (ShowOffManager.soManager.IsShowingOff())
+        {
+            ShowOffManager.soManager.NotifyMiss();
+        }
+        else
+        {
+            BossRhythmManager.brManager.NoteMissed();
+        }
         DestroyNote();
     }
 

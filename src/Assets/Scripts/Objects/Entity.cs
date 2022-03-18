@@ -55,6 +55,11 @@ public abstract class Entity
         return defense;
     }
 
+    public float GetMaxHp()
+    {
+        return maxhp;
+    }
+
     public abstract float CalculateAttack();
 
     public abstract void Die();

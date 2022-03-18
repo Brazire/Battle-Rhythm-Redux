@@ -19,18 +19,21 @@ public class Player : Entity
         this.defense = defense;
         this.healthbar = healthbar;
         baseAttack = new BasicBitchAttack();
-        skill1 = new FeelGood();
-        skill2 = new EveryoneHurts();
-        skill3 = new AllDemDamage();
         this.isBossFight = isBossFight;
         if (this.isBossFight)
         {
+            skill1 = new BossFeelGood();
+            skill2 = new FUBossNotes();
+            skill3 = new BossAllDemDamage();
             BossUIManager.uiManager.SetSkillIcon(1, skill1.GetIcon());
             BossUIManager.uiManager.SetSkillIcon(2, skill2.GetIcon());
             BossUIManager.uiManager.SetSkillIcon(3, skill3.GetIcon());
         }
         else
         {
+            skill1 = new FeelGood();
+            skill2 = new EveryoneHurts();
+            skill3 = new AllDemDamage();
             UIManager.uiManager.SetSkillIcon(1, skill1.GetIcon());
             UIManager.uiManager.SetSkillIcon(2, skill2.GetIcon());
             UIManager.uiManager.SetSkillIcon(3, skill3.GetIcon());
@@ -72,13 +75,14 @@ public class Player : Entity
     public override void UseATB(int amount)
     {
         atb -= amount;
-        RhythmManager.rManager.SetATB(atb);
         if (isBossFight)
         {
+            BossRhythmManager.brManager.SetATB(atb);
             BossUIManager.uiManager.UpdateATBNumber(atb, atb + amount);
         }
         else
         {
+            RhythmManager.rManager.SetATB(atb);
             UIManager.uiManager.UpdateATBNumber(atb, atb + amount);
         }
     }

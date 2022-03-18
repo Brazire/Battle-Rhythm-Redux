@@ -13,8 +13,8 @@ public class BossRhythmManager : MonoBehaviour
     [SerializeField] private GameObject[] arrows = new GameObject[4];
     [SerializeField] private GameObject[] bossArrows = new GameObject[4];
     [SerializeField] private GameObject[] activators = new GameObject[4];
-    [SerializeField] private GameObject[] bossActivators = new GameObject[4];
     [SerializeField] private AudioSource song;
+    private bool bossPlaying;
 
     // Start is called before the first frame update
     private void Awake()
@@ -42,6 +42,7 @@ public class BossRhythmManager : MonoBehaviour
         {
             SpawnBossNote();
         }
+        bossPlaying = true;
     }
 
     public void SpawnNote()
@@ -89,21 +90,41 @@ public class BossRhythmManager : MonoBehaviour
         Debug.Log("Ya hit a bomb!");
         if (atbCounter > 0)
         {
-            SetATB(atbCounter - 1);
+            atbCounter -= 1;
+            SetATB(atbCounter);
             BossUIManager.uiManager.UpdateATBNumber(atbCounter, atbCounter + 1);
         }
         BossUIManager.uiManager.StartShake();
     }
 
+    public void BossBombHit()
+    {
+        if (bossatbCounter > 0)
+        {
+            bossatbCounter -= 1;
+            SetBossAtb(bossatbCounter);
+            BossUIManager.uiManager.UpdateBossATBNumber(bossatbCounter, bossatbCounter + 1);
+        }
+    }
+
     public void PlaceBomb()
     {
-        notes.transform.GetChild(4).GetComponent<NoteObj>().SetAsBomb();
+        notes.transform.GetChild(4).GetComponent<BPNoteObj>().SetAsBomb();
+    }
+
+    public void PlaceBossBomb()
+    {
+        bossNotes.transform.GetChild(4).GetComponent<BossNoteObj>().SetAsBomb();
     }
 
     public void SetATB(int atb)
     {
         atbCounter = atb;
-        Debug.Log("Atb is at : " + atb.ToString());
+    }
+
+    public void SetBossAtb(int atb)
+    {
+        bossatbCounter = atb;
     }
 
     public float GetTempo()
@@ -114,6 +135,11 @@ public class BossRhythmManager : MonoBehaviour
     public float GetMultiplier()
     {
         return multiplier;
+    }
+
+    public bool IsBossRhythmPlaying()
+    {
+        return bossPlaying;
     }
 
     private void EnableRhythmControls()
@@ -132,12 +158,25 @@ public class BossRhythmManager : MonoBehaviour
 
     private void SwitchToCombat(InputAction.CallbackContext obj)
     {
-        if (atbCounter >= 1)
+        if (atbCounter >= 1 && !ShowOffManager.soManager.IsShowingOff())
         {
             DisableRhythmControls();
-            BossBattleManager.bManager.StartCombat(atbCounter);
+            BossBattleManager.bbManager.StartCombat(atbCounter);
             BossUIManager.uiManager.ChangeSwitchDirection();
         }
+    }
+
+    private void BossSwitchToCombat()
+    {
+        bossPlaying = false;
+        BossUIManager.uiManager.ChangeBossSwitchDirection();
+        BossBattleManager.bbManager.StartBossAttack(bossatbCounter);
+    }
+
+    public void BossResumePlaying()
+    {
+        bossPlaying = true;
+        BossUIManager.uiManager.ChangeBossSwitchDirection();
     }
 
     private void DisableRhythmControls()
@@ -174,6 +213,10 @@ public class BossRhythmManager : MonoBehaviour
                 bossatbBuildCounter = 0;
                 bossatbCounter++;
                 BossUIManager.uiManager.UpdateBossATBNumber(bossatbCounter, bossatbCounter - 1);
+                if (!BossBattleManager.bbManager.GetBoss().ContinueAttack())
+                {
+                    BossSwitchToCombat();
+                }
             }
             BossUIManager.uiManager.UpdateBossATB(bossatbBuildCounter);
         }
