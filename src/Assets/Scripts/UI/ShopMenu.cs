@@ -42,7 +42,7 @@ public class ShopMenu : MonoBehaviour
 
     void Awake()
     {
-        shopItems = Resources.LoadAll<ScriptableItem>("").ToList();
+        shopItems = InventoryManager.iManager.GetAllShopItems();
 
         oldTab = GameObject.Find("BuyB");
         unselectedColor = oldTab.GetComponent<Button>().colors;
@@ -132,6 +132,8 @@ public class ShopMenu : MonoBehaviour
         ValidateQuantity();
         EventSystem.current.SetSelectedGameObject(QuantityT);
     }
+
+    public bool IsConfirmMenuEnabled() => ConfirmMenu.activeSelf;
 
     public void CloseConfirm()
     {

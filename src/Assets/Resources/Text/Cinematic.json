@@ -1,0 +1,91 @@
+{
+    "lists": [
+        {
+            "id": 1,
+            "dialogId": 6,
+            "actions": [
+                {
+                    "isAction": false,
+                    "isWalking": true,
+                    "npcId": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    }
+                },
+                {
+                    "isAction": true,
+                    "isWalking": true,
+                    "npcId": 3,
+                    "position": {
+                        "x": 406.7,
+                        "y": 432.8
+                    }
+                },
+                {
+                    "isAction": false,
+                    "isWalking": true,
+                    "npcId": 0,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                },
+                {
+                    "isAction": false,
+                    "isWalking": true,
+                    "npcId": 0,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                },
+                {
+                    "isAction": true,
+                    "isWalking": true,
+                    "npcId": 3,
+                    "position": {
+                        "x": 379.6,
+                        "y": 432.8
+                    }
+                },
+                {
+                    "isAction": true,
+                    "isWalking": true,
+                    "npcId": 3,
+                    "position": {
+                        "x": 377.8,
+                        "y": 493.8
+                    }
+                },
+                {
+                    "isAction": false,
+                    "isWalking": true,
+                    "npcId": 0,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                },
+                {
+                    "isAction": false,
+                    "isWalking": true,
+                    "npcId": 0,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                },
+                {
+                    "isAction": true,
+                    "isWalking": false,
+                    "npcId": 3,
+                    "position": {
+                        "x": 358,
+                        "y": 357
+                    }
+                }
+            ]
+        }
+    ]
+}

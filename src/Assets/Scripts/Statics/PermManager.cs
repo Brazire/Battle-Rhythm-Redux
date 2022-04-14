@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PermManager : MonoBehaviour
 {
     public PlayerStat player;
     private GameObject playerGo;
     private Vector3 playerPos;
 
+    public Dictionary<string, string> varDict { get; private set; }
+    public List<int> cinematicAlreadyPlayed;
 
     public static PermManager pManager;
 
@@ -22,6 +25,29 @@ public class PermManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         pManager = this;
         SetIsNotBossBattle();
+        LoadVariableDict();
+        cinematicAlreadyPlayed = new List<int>();
+    }
+
+    public void LoadVariableDict()
+    {
+        var playerName = "Player";
+        varDict = new Dictionary<string, string>
+        {
+            { "%PlayerName%", playerName }
+        };
+
+        var isPlayingWithKeyboard = true;
+        if (isPlayingWithKeyboard)
+        {
+            varDict.Add("%InventoryKey%", "I key");
+            varDict.Add("%TalkKey%", "F key");
+        }
+        else
+        {
+            varDict.Add("%InventoryKey%", "Start button");
+            varDict.Add("%TalkKey%", "A button");
+        }
     }
 
     public int GetSceneFlag()

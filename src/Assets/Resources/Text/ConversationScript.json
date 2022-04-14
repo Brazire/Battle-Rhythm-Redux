@@ -1,0 +1,139 @@
+{
+    "dialogs": [
+        {
+            "id": 0,
+            "talks": [
+                {
+                    "npcId": 1,
+                    "text": "Lalala lala~."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Woow, you talked to me!!."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Don't talk to me."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Believe in the me that believes in you."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Your drill is the drill that will pierce the Heavens!"
+                },
+				{
+                    "npcId": 1,
+                    "text": "I can't even rest in peace, can I..?"
+                },
+				{
+                    "npcId": 1,
+                    "text": "Hello!"
+                }
+            ],
+            "choices": []
+        },
+		{
+            "id": 1,
+            "talks": [
+                {
+                    "npcId": 0,
+                    "text": "Example without a npc name displayed."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Now an example with a npc name displayed."
+                },
+				{
+                    "npcId": 1,
+                    "text": "You will need to choose between 3 ¬*options*¬."
+                }
+            ],
+            "choices": [
+                {
+                    "branchingId": 2,
+                    "text": "option 1"
+                },
+				{
+                    "branchingId": 3,
+                    "text": "option 2"
+                },
+				{
+                    "branchingId": 0,
+                    "text": "option 3"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "talks": [
+                {
+                    "npcId": 1,
+                    "text": "You selected the first option, yaayy!!"
+                }
+            ],
+            "choices": []
+        },
+        {
+            "id": 3,
+            "talks": [
+                {
+                    "npcId": 1,
+                    "text": "You choose the second option."
+                },
+				{
+                    "npcId": 1,
+                    "text": "Yaayy!!"
+                }
+            ],
+            "choices": []
+        },
+		{
+            "id": 4,
+            "talks": [
+                {
+                    "npcId": 2,
+                    "text": "I like walking yaayy."
+                }
+            ],
+            "choices": []
+        },
+		{
+            "id": 5,
+            "talks": [
+                {
+                    "npcId": 4,
+                    "text": "Welcome to my shop!!"
+                }
+            ],
+            "choices": []
+        },
+		{
+            "id": 6,
+            "talks": [
+                {
+                    "npcId": 0,
+                    "text": "A purple rectangle is walking towards you."
+                },
+				{
+                    "npcId": 3,
+                    "text": "Hi, I'm a purple box but you can call me @Purple@! I'll explain how to get items."
+                },
+				{
+                    "npcId": 3,
+                    "text": "But first! I'll give you some #money#."
+                },
+				{
+                    "npcId": 3,
+                    "text": "You can spend your money here. You must #speak with the merchant# before he shows you what he has for sale. So use the |%TalkKey%| to speak with people."
+                },
+				{
+                    "npcId": 3,
+                    "text": "You'll be able to use what you've purchased in your #Inventory#. To open or close your Inventory, press the |%InventoryKey%|."
+                }
+            ],
+            "choices": []
+        }
+    ]
+}
