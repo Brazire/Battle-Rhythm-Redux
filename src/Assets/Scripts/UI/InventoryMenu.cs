@@ -100,15 +100,6 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
-    public void WipeSide()
-    {
-        foreach (Transform child in LeftSide.transform)
-            Destroy(child.gameObject);
-
-        foreach (Transform child in RightSide.transform)
-            Destroy(child.gameObject);
-    }
-
     private void DisplayItems(List<ScriptableItem> lists)
     {
         foreach (Transform child in LeftSide.transform)
@@ -166,7 +157,7 @@ public class InventoryMenu : MonoBehaviour
 
                 int itemIndex = Mathf.Clamp(newItem.transform.GetSiblingIndex(), 0, equipments.Count - 1);
                 if (equipments.Count > 0)
-                    EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(itemIndex).gameObject);
+                    EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(itemIndex + equipments.Count).gameObject);
                 else
                     EventSystem.current.SetSelectedGameObject(oldTab);
             });

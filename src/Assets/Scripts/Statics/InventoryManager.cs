@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager iManager;
     private Dictionary<ScriptableItem, int> ItemsDict;
+    private List<ScriptableItem> shopItems;
 
     public int currentMoney = 0;
 
@@ -14,8 +16,10 @@ public class InventoryManager : MonoBehaviour
     {
         iManager = this;
         ItemsDict = new Dictionary<ScriptableItem, int>();
+        StartCoroutine(Fade());
     }
 
+    public List<ScriptableItem> GetAllShopItems() => shopItems;
     public int GetQuantity(ScriptableItem item) => ItemsDict[item];
     public bool ItemsExist(ScriptableItem item) => ItemsDict.ContainsKey(item);
 
@@ -50,5 +54,11 @@ public class InventoryManager : MonoBehaviour
     public List<ScriptableItem> GetAllItems()
     {
         return ItemsDict.Select(i => i.Key).ToList();
+    }
+
+    private IEnumerator Fade()
+    {
+        shopItems = Resources.LoadAll<ScriptableItem>("").ToList();
+        yield return null;
     }
 }

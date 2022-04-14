@@ -735,14 +735,6 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Shop"",
-                    ""type"": ""Button"",
-                    ""id"": ""f4430f05-e756-4b6e-80b7-04e6c7c44575"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Horizontal"",
                     ""type"": ""Button"",
                     ""id"": ""219caf47-3a87-41be-8e93-0163479bbcc0"",
@@ -754,6 +746,14 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""name"": ""Vertical"",
                     ""type"": ""Button"",
                     ""id"": ""0597df54-2951-447f-91d2-a09fe665c2c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b743079-e076-425e-8b11-4428cd98405d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -801,17 +801,6 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interraction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""235bf775-41cc-496b-99fd-1f60dcc25561"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -885,7 +874,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""name"": ""GamePad"",
                     ""id"": ""bd7a2b11-f9d1-45dc-83b7-996a8e13ba5b"",
                     ""path"": ""1DAxis"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Horizontal"",
@@ -893,9 +882,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
+                    ""name"": ""Negative"",
                     ""id"": ""f54e18ca-f654-4a7c-b77e-c8afc88f3018"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -904,9 +893,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
+                    ""name"": ""Positive"",
                     ""id"": ""628d2521-e2b5-4e61-885f-55d027b9bb9a"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1017,7 +1006,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""name"": ""Gamepad"",
                     ""id"": ""52310d40-3394-499c-965a-536bcbca0133"",
                     ""path"": ""1DAxis"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Vertical"",
@@ -1027,7 +1016,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""8bc9a402-89ef-4006-959a-7d6a93bb5809"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1038,7 +1027,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""ff4de53b-e7d3-48db-abff-8cebae91231f"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1078,6 +1067,28 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""action"": ""Vertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64baa67e-d883-45f6-b04f-26f7f7964609"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb8f71d3-30cc-49a1-95b4-e68581451a38"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1106,9 +1117,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         m_World = asset.FindActionMap("World", throwIfNotFound: true);
         m_World_Inventory = m_World.FindAction("Inventory", throwIfNotFound: true);
         m_World_Interraction = m_World.FindAction("Interraction", throwIfNotFound: true);
-        m_World_Shop = m_World.FindAction("Shop", throwIfNotFound: true);
         m_World_Horizontal = m_World.FindAction("Horizontal", throwIfNotFound: true);
         m_World_Vertical = m_World.FindAction("Vertical", throwIfNotFound: true);
+        m_World_Cancel = m_World.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1322,18 +1333,18 @@ public class @RhythmControls : IInputActionCollection, IDisposable
     private IWorldActions m_WorldActionsCallbackInterface;
     private readonly InputAction m_World_Inventory;
     private readonly InputAction m_World_Interraction;
-    private readonly InputAction m_World_Shop;
     private readonly InputAction m_World_Horizontal;
     private readonly InputAction m_World_Vertical;
+    private readonly InputAction m_World_Cancel;
     public struct WorldActions
     {
         private @RhythmControls m_Wrapper;
         public WorldActions(@RhythmControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Inventory => m_Wrapper.m_World_Inventory;
         public InputAction @Interraction => m_Wrapper.m_World_Interraction;
-        public InputAction @Shop => m_Wrapper.m_World_Shop;
         public InputAction @Horizontal => m_Wrapper.m_World_Horizontal;
         public InputAction @Vertical => m_Wrapper.m_World_Vertical;
+        public InputAction @Cancel => m_Wrapper.m_World_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_World; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1349,15 +1360,15 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Interraction.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
                 @Interraction.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
                 @Interraction.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnInterraction;
-                @Shop.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
-                @Shop.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
-                @Shop.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnShop;
                 @Horizontal.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
                 @Horizontal.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
                 @Horizontal.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnHorizontal;
                 @Vertical.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
                 @Vertical.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
                 @Vertical.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnVertical;
+                @Cancel.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_WorldActionsCallbackInterface = instance;
             if (instance != null)
@@ -1368,15 +1379,15 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Interraction.started += instance.OnInterraction;
                 @Interraction.performed += instance.OnInterraction;
                 @Interraction.canceled += instance.OnInterraction;
-                @Shop.started += instance.OnShop;
-                @Shop.performed += instance.OnShop;
-                @Shop.canceled += instance.OnShop;
                 @Horizontal.started += instance.OnHorizontal;
                 @Horizontal.performed += instance.OnHorizontal;
                 @Horizontal.canceled += instance.OnHorizontal;
                 @Vertical.started += instance.OnVertical;
                 @Vertical.performed += instance.OnVertical;
                 @Vertical.canceled += instance.OnVertical;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
         }
     }
@@ -1405,8 +1416,8 @@ public class @RhythmControls : IInputActionCollection, IDisposable
     {
         void OnInventory(InputAction.CallbackContext context);
         void OnInterraction(InputAction.CallbackContext context);
-        void OnShop(InputAction.CallbackContext context);
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

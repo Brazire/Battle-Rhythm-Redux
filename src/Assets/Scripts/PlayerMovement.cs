@@ -16,7 +16,25 @@ public class PlayerMovement : MonoBehaviour {
 		rControls.World.Horizontal.Enable();
 		rControls.World.Vertical.Enable();
 	}
-	
+
+	public void EnableWalking()
+	{
+		rControls.World.Horizontal.Enable();
+		rControls.World.Vertical.Enable();
+	}
+
+	public void DisableWalking()
+	{
+		rControls.World.Horizontal.Disable();
+		rControls.World.Vertical.Disable();
+	}
+
+	public void MakePlayerMove(Vector3 direction)
+    {
+		animator.SetInteger("DirectionX", (int)direction.x);
+		animator.SetInteger("DirectionY", (int)direction.y);
+	}
+
 	void FixedUpdate () {
 
 		// Set lastest player position
