@@ -50,9 +50,9 @@ public class InventoryMenu : MonoBehaviour
 
     void OnEnable()
     {
-        consumables = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.consumable);
-        keyitems = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.keyItem);
-        equipments = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.equipment);
+        consumables = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.consumable);
+        keyitems = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.keyItem);
+        equipments = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.equipment);
 
         var button = GameObject.Find("EquipmentB");
         EventSystem.current.SetSelectedGameObject(button);
@@ -129,9 +129,9 @@ public class InventoryMenu : MonoBehaviour
         {
             newItem.GetComponent<Button>().onClick.AddListener(() =>
             {
-                InventoryManager.iManager.AddItemQuantity(PermManager.pManager.player.equipments[type]);
+                PermManager.pManager.player.AddItemQuantity(PermManager.pManager.player.equipments[type]);
                 PermManager.pManager.player.RemoveEquipment(type);
-                equipments = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.equipment);
+                equipments = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.equipment);
                 DisplayItems(equipments);
                 EventSystem.current.SetSelectedGameObject(oldTab);
             });
@@ -151,8 +151,8 @@ public class InventoryMenu : MonoBehaviour
             newItem = Instantiate(ItemBase, LeftSide.transform);
             newItem.GetComponent<Button>().onClick.AddListener(() =>
             {
-                InventoryManager.iManager.UseItem(item);
-                equipments = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.equipment);
+                PermManager.pManager.player.UseItem(item);
+                equipments = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.equipment);
                 DisplayItems(equipments);
 
                 int itemIndex = Mathf.Clamp(newItem.transform.GetSiblingIndex(), 0, equipments.Count - 1);
@@ -171,18 +171,18 @@ public class InventoryMenu : MonoBehaviour
 
         newItem.SetActive(true);
         newItem.transform.Find("itemName").GetComponent<Text>().text = item.itemName;
-        newItem.transform.Find("itemQuantity").GetComponent<Text>().text = "X " + InventoryManager.iManager.GetQuantity(item);
+        newItem.transform.Find("itemQuantity").GetComponent<Text>().text = "X " + PermManager.pManager.player.GetQuantity(item);
 
         isLeft = !isLeft;
     }
 
     private void ConsumableSelected(GameObject itemObject, ScriptableItem item)
     {
-        InventoryManager.iManager.UseItem(item);
+        PermManager.pManager.player.UseItem(item);
 
-        if (!InventoryManager.iManager.ItemsExist(item))
+        if (!PermManager.pManager.player.ItemsExist(item))
         {
-            consumables = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.consumable);
+            consumables = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.consumable);
             DisplayItems(consumables);
 
             if(consumables.Count == 0)
@@ -192,7 +192,7 @@ public class InventoryMenu : MonoBehaviour
         }
         else
         {
-            itemObject.transform.Find("itemQuantity").GetComponent<Text>().text = "X " + InventoryManager.iManager.GetQuantity(item);
+            itemObject.transform.Find("itemQuantity").GetComponent<Text>().text = "X " + PermManager.pManager.player.GetQuantity(item);
             EventSystem.current.SetSelectedGameObject(itemObject);
         }
     }

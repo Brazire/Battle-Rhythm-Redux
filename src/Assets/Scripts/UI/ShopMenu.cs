@@ -42,7 +42,7 @@ public class ShopMenu : MonoBehaviour
 
     void Awake()
     {
-        shopItems = InventoryManager.iManager.GetAllShopItems();
+        shopItems = PermManager.pManager.GetAllShopItems();
 
         oldTab = GameObject.Find("BuyB");
         unselectedColor = oldTab.GetComponent<Button>().colors;
@@ -52,12 +52,12 @@ public class ShopMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        playerItems = InventoryManager.iManager.GetAllItems(); 
+        playerItems = PermManager.pManager.player.GetAllItems(); 
         
         var button = GameObject.Find("BuyB");
         EventSystem.current.SetSelectedGameObject(button);
         ShowShopItem(button);
-        GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + InventoryManager.iManager.currentMoney;
+        GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + PermManager.pManager.player.currentMoney;
     }
 
     private void OnDisable() => CurrentTab = SelectedTab.none;
@@ -87,7 +87,7 @@ public class ShopMenu : MonoBehaviour
         newItem.SetActive(true);
         newItem.transform.Find("NameT").GetComponent<Text>().text = item.itemName;
         if(CurrentTab == SelectedTab.player)
-            newItem.transform.Find("QuantityT").GetComponent<Text>().text = "X " + InventoryManager.iManager.GetQuantity(item);
+            newItem.transform.Find("QuantityT").GetComponent<Text>().text = "X " + PermManager.pManager.player.GetQuantity(item);
         else
             newItem.transform.Find("QuantityT").GetComponent<Text>().text = item.buyingPrice + "$";
     }
@@ -125,8 +125,8 @@ public class ShopMenu : MonoBehaviour
         GetComponent<CanvasGroup>().interactable = false;
         QuantityT.GetComponent<InputField>().text = "1";
 
-        int maxQty = (CurrentTab == SelectedTab.shop) ? 
-            InventoryManager.iManager.currentMoney / selectedItem.buyingPrice : InventoryManager.iManager.GetQuantity(selectedItem);
+        int maxQty = (CurrentTab == SelectedTab.shop) ?
+            PermManager.pManager.player.currentMoney / selectedItem.buyingPrice : PermManager.pManager.player.GetQuantity(selectedItem);
         GameObject.Find("QtyMax").GetComponent<Text>().text = "/ " + maxQty;
 
         ValidateQuantity();
@@ -162,7 +162,7 @@ public class ShopMenu : MonoBehaviour
         {
             if (CurrentTab == SelectedTab.player)
             {
-                if (qty <= InventoryManager.iManager.GetQuantity(selectedItem))
+                if (qty <= PermManager.pManager.player.GetQuantity(selectedItem))
                     SellItem(qty);
             }
             else
@@ -174,11 +174,11 @@ public class ShopMenu : MonoBehaviour
 
     private void SellItem(int quantity)
     {
-        InventoryManager.iManager.currentMoney += selectedItem.sellingPrice * quantity;
-        InventoryManager.iManager.AddItemQuantity(selectedItem, -quantity);
+        PermManager.pManager.player.currentMoney += selectedItem.sellingPrice * quantity;
+        PermManager.pManager.player.AddItemQuantity(selectedItem, -quantity);
 
-        if (InventoryManager.iManager.ItemsExist(selectedItem))
-            selectedObject.transform.Find("QuantityT").GetComponent<Text>().text = "X " + InventoryManager.iManager.GetQuantity(selectedItem);
+        if (PermManager.pManager.player.ItemsExist(selectedItem))
+            selectedObject.transform.Find("QuantityT").GetComponent<Text>().text = "X " + PermManager.pManager.player.GetQuantity(selectedItem);
         else
         {
             Destroy(selectedObject);
@@ -186,19 +186,19 @@ public class ShopMenu : MonoBehaviour
         }
 
         CloseConfirm();
-        GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + InventoryManager.iManager.currentMoney;
+        GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + PermManager.pManager.player.currentMoney;
     }
 
     private void BuyItem(int quantity)
     {
         var cost = selectedItem.buyingPrice * quantity;
-        if (cost <= InventoryManager.iManager.currentMoney)
+        if (cost <= PermManager.pManager.player.currentMoney)
         {
-            InventoryManager.iManager.currentMoney -= cost;
-            InventoryManager.iManager.AddItemQuantity(selectedItem, quantity);
-            playerItems = InventoryManager.iManager.GetAllItems();
+            PermManager.pManager.player.currentMoney -= cost;
+            PermManager.pManager.player.AddItemQuantity(selectedItem, quantity);
+            playerItems = PermManager.pManager.player.GetAllItems();
             CloseConfirm();
-            GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + InventoryManager.iManager.currentMoney;
+            GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + PermManager.pManager.player.currentMoney;
         }
     }
 
@@ -206,14 +206,14 @@ public class ShopMenu : MonoBehaviour
     {
         if (CurrentTab == SelectedTab.player)
         {
-            var qty = Mathf.Clamp(int.Parse(QuantityT.GetComponent<InputField>().text), 0, InventoryManager.iManager.GetQuantity(selectedItem));
+            var qty = Mathf.Clamp(int.Parse(QuantityT.GetComponent<InputField>().text), 0, PermManager.pManager.player.GetQuantity(selectedItem));
 
             QuantityT.GetComponent<InputField>().text = qty.ToString();
             GameObject.Find("TransactionT").GetComponent<Text>().text = "Sell for : " + qty * selectedItem.sellingPrice;
         }
         else
         {
-            var max = InventoryManager.iManager.currentMoney / selectedItem.buyingPrice;
+            var max = PermManager.pManager.player.currentMoney / selectedItem.buyingPrice;
             var qty = Mathf.Clamp(int.Parse(QuantityT.GetComponent<InputField>().text), 0, max);
 
             QuantityT.GetComponent<InputField>().text = qty.ToString();

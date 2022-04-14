@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,9 @@ public class PermManager : MonoBehaviour
     private Vector3 playerPos;
 
     public Dictionary<string, string> varDict { get; private set; }
+    private List<ScriptableItem> shopItems;
+    
+    [HideInInspector]
     public List<int> cinematicAlreadyPlayed;
 
     public static PermManager pManager;
@@ -26,6 +30,7 @@ public class PermManager : MonoBehaviour
         pManager = this;
         SetIsNotBossBattle();
         LoadVariableDict();
+        StartCoroutine(LoadAllShopItems());
         cinematicAlreadyPlayed = new List<int>();
     }
 
@@ -88,6 +93,13 @@ public class PermManager : MonoBehaviour
     public void LetsLoadAScene()
     {
         SceneManager.LoadScene(sceneFlag);
+    }
+    public List<ScriptableItem> GetAllShopItems() => shopItems;
+
+    private IEnumerator LoadAllShopItems()
+    {
+        shopItems = Resources.LoadAll<ScriptableItem>("").ToList();
+        yield return null;
     }
 
     public void PlacePlayerBack()

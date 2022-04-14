@@ -14,7 +14,7 @@ public class ScriptableEquipment : ScriptableItem
     {
         if (PermManager.pManager.player.equipments.ContainsKey(TypeEquipment))
         {
-            InventoryManager.iManager.AddItemQuantity(PermManager.pManager.player.equipments[TypeEquipment]);
+            PermManager.pManager.player.AddItemQuantity(PermManager.pManager.player.equipments[TypeEquipment]);
             PermManager.pManager.player.RemoveEquipment(TypeEquipment);
         }
 
