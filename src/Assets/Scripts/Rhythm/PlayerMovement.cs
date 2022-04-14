@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Awake () {
 		Debug.Log("Starting movement");
 		rControls = new RhythmControls();
-
+		PermManager.pManager.PlacePlayerBack();
 		rControls.World.Horizontal.Enable();
 		rControls.World.Vertical.Enable();
 	}

@@ -27,6 +27,13 @@ public class NoteObj : MonoBehaviour
             }
             else
             {
+                if (PermManager.pManager.CheckBossBattle())
+                {
+                    if (ShowOffManager.soManager.IsShowingOff())
+                    {
+
+                    }
+                }
                 NotifyHit();
             }
         }
@@ -58,25 +65,32 @@ public class NoteObj : MonoBehaviour
 
     private void NotifyHit()
     {
-        RhythmManager.rManager.NoteHit();
+        if (PermManager.pManager.CheckBossBattle() && ShowOffManager.soManager.IsShowingOff())
+        {
+            ShowOffManager.soManager.NotifyHit();
+        }
+        else
+        {
+            SharedRhythmManager.srManager.NoteHit();
+        }
         DestroyNote();
     }
 
     private void NotifyBombHit()
     {
-        RhythmManager.rManager.BombHit();
+        SharedRhythmManager.srManager.BombHit();
         DestroyNote();
     }
 
     private void NotifyMissed()
     {
-        RhythmManager.rManager.NoteMissed();
+        SharedRhythmManager.srManager.NoteMissed();
         DestroyNote();
     }
 
     private void DestroyNote()
     {
         Destroy(gameObject);
-        RhythmManager.rManager.SpawnNote();
+        SharedRhythmManager.srManager.SpawnNote();
     }
 }

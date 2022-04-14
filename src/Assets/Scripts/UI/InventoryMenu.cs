@@ -134,12 +134,12 @@ public class InventoryMenu : MonoBehaviour
         GameObject newItem;
         newItem = Instantiate(ItemBase, RightSide.transform);
 
-        if (PermManager.player.equipments.ContainsKey(type))
+        if (PermManager.pManager.player.equipments.ContainsKey(type))
         {
             newItem.GetComponent<Button>().onClick.AddListener(() =>
             {
-                InventoryManager.iManager.AddItemQuantity(PermManager.player.equipments[type]);
-                PermManager.player.RemoveEquipment(type);
+                InventoryManager.iManager.AddItemQuantity(PermManager.pManager.player.equipments[type]);
+                PermManager.pManager.player.RemoveEquipment(type);
                 equipments = InventoryManager.iManager.GetItems(ScriptableItem.ItemType.equipment);
                 DisplayItems(equipments);
                 EventSystem.current.SetSelectedGameObject(oldTab);
@@ -149,7 +149,7 @@ public class InventoryMenu : MonoBehaviour
         newItem.SetActive(true);
         newItem.transform.Find("itemQuantity").GetComponent<Text>().text = "";
         newItem.transform.Find("itemName").GetComponent<Text>().text = type.ToString() +
-            (PermManager.player.equipments.ContainsKey(type) ? " : " + PermManager.player.equipments[type].itemName : " : ");
+            (PermManager.pManager.player.equipments.ContainsKey(type) ? " : " + PermManager.pManager.player.equipments[type].itemName : " : ");
     }
 
     public void CreateItemButton(ScriptableItem item)

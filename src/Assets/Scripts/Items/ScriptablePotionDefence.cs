@@ -5,6 +5,6 @@ public class ScriptablePotionDefence : ScriptableConsumable
 {
     public override void UseItem()
     {
-        PermManager.player.defense += Point;
+        PermManager.pManager.player.defense += Point;
     }
 }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ShowOffShow : MonoBehaviour
 {
+    private SpriteRenderer renderer;
+
     public void ShowCase()
     {
         gameObject.SetActive(true);
+        renderer = transform.GetComponent<SpriteRenderer>();
+        renderer.material.color = new Color(1, 1, 1, 1f);
         StartCoroutine(ShowRoutine());
     }
 
@@ -15,7 +19,7 @@ public class ShowOffShow : MonoBehaviour
         BossUIManager.uiManager.StartShake();
         ShowOffManager.soManager.StartShowingOff();
         yield return new WaitForSeconds(3f);
-        SpriteRenderer renderer = transform.GetComponent<SpriteRenderer>();
+        renderer = transform.GetComponent<SpriteRenderer>();
         for (float i = renderer.material.color.a; i >= 0f; i -= 0.1f)
         {
             Color newColor = new Color(1, 1, 1, i);

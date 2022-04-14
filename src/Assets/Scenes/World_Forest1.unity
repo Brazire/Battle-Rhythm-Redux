@@ -60276,6 +60276,7 @@ GameObject:
   - component: {fileID: 498111033}
   - component: {fileID: 498111032}
   - component: {fileID: 498111031}
+  - component: {fileID: 498111030}
   m_Layer: 3
   m_Name: SceneSwitchBox
   m_TagString: Untagged
@@ -60283,6 +60284,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &498111030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498111029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf91e96de0d1ec041a5a331c8a90a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &498111031
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60474,6 +60487,7 @@ GameObject:
   - component: {fileID: 719046996}
   - component: {fileID: 719046995}
   - component: {fileID: 719046994}
+  - component: {fileID: 719046993}
   m_Layer: 0
   m_Name: cmbTiles2
   m_TagString: Untagged
@@ -60495,6 +60509,18 @@ Transform:
   m_Father: {fileID: 776598359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &719046993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719046991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d71516f27aa98446874601f482e251d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!19719996 &719046994
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -71702,6 +71728,7 @@ GameObject:
   - component: {fileID: 1266668997}
   - component: {fileID: 1266668996}
   - component: {fileID: 1266668995}
+  - component: {fileID: 1266668994}
   m_Layer: 0
   m_Name: cmbTiles3
   m_TagString: Untagged
@@ -71723,6 +71750,18 @@ Transform:
   m_Father: {fileID: 558474397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1266668994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266668992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d71516f27aa98446874601f482e251d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!19719996 &1266668995
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -73561,6 +73600,7 @@ GameObject:
   - component: {fileID: 1423725969}
   - component: {fileID: 1423725968}
   - component: {fileID: 1423725967}
+  - component: {fileID: 1423725966}
   m_Layer: 0
   m_Name: cmbTiles3
   m_TagString: Untagged
@@ -73582,6 +73622,18 @@ Transform:
   m_Father: {fileID: 1531351813}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423725966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423725964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d71516f27aa98446874601f482e251d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!19719996 &1423725967
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -75502,6 +75554,7 @@ GameObject:
   - component: {fileID: 1559448479}
   - component: {fileID: 1559448478}
   - component: {fileID: 1559448477}
+  - component: {fileID: 1559448480}
   m_Layer: 0
   m_Name: cmbTiles1
   m_TagString: Untagged
@@ -78137,6 +78190,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1559448480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559448475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d71516f27aa98446874601f482e251d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1559616256
 GameObject:
   m_ObjectHideFlags: 0
@@ -87060,6 +87125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7707312341549523855, guid: 1609ee623a88b8f43965fa1f99c6df7a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7707312341560702742, guid: 1609ee623a88b8f43965fa1f99c6df7a, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -87204,5 +87273,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.00021189988
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1952675838255089934, guid: 1609ee623a88b8f43965fa1f99c6df7a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1609ee623a88b8f43965fa1f99c6df7a, type: 3}

@@ -12,13 +12,13 @@ public class ScriptableEquipment : ScriptableItem
 
     public override void UseItem()
     {
-        if (PermManager.player.equipments.ContainsKey(TypeEquipment))
+        if (PermManager.pManager.player.equipments.ContainsKey(TypeEquipment))
         {
-            InventoryManager.iManager.AddItemQuantity(PermManager.player.equipments[TypeEquipment]);
-            PermManager.player.RemoveEquipment(TypeEquipment);
+            InventoryManager.iManager.AddItemQuantity(PermManager.pManager.player.equipments[TypeEquipment]);
+            PermManager.pManager.player.RemoveEquipment(TypeEquipment);
         }
 
-        PermManager.player.AddEquipment(this);
+        PermManager.pManager.player.AddEquipment(this);
     }
 
     public enum EquipmentType

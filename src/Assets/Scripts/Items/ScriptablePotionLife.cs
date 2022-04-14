@@ -5,7 +5,7 @@ public class ScriptablePotionLife : ScriptableConsumable
 {
     public override void UseItem()
     {
-        PermManager.player.hp = Mathf.Clamp(PermManager.player.hp + Point, 0, PermManager.player.maxHp);
+        PermManager.pManager.player.hp = Mathf.Clamp(PermManager.pManager.player.hp + Point, 0, PermManager.pManager.player.maxHp);
         //CharactersPortraitUpdate.SetPortrait();
     }
 }

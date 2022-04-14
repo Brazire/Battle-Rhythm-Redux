@@ -23,7 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_Sand1.unity
     guid: 6701d4fc8b41e3f4d98ca5965552b4f7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BattleScene.unity
     guid: 53417cc793fefa141bf78e7e15eed7b2
+  - enabled: 1
+    path: Assets/Scenes/BossBattleScene.unity
+    guid: 3e49d109f00beb94994de1949f3d3fbd
+  - enabled: 1
+    path: Assets/Scenes/BattleReduxScene.unity
+    guid: aae9783776e500543af24b957637632b
   m_configObjects: {}

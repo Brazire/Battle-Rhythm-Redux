@@ -3,37 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BossRhythmManager : MonoBehaviour
+public class BossRhythmManager : SharedRhythmManager
 {
     public static BossRhythmManager brManager;
-    [SerializeField] private GameObject notes, bossNotes;
-    private RhythmControls rControls;
-    [SerializeField] private float multiplier, tempo, distance;
-    private int atbCounter, bossatbCounter, atbBuildCounter, bossatbBuildCounter, noteNbr, bossNoteNbr;
-    [SerializeField] private GameObject[] arrows = new GameObject[4];
+    [SerializeField] private GameObject bossNotes;
+    private int bossatbCounter, bossatbBuildCounter, bossNoteNbr;
     [SerializeField] private GameObject[] bossArrows = new GameObject[4];
-    [SerializeField] private GameObject[] activators = new GameObject[4];
-    [SerializeField] private AudioSource song;
     private bool bossPlaying;
 
     // Start is called before the first frame update
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         brManager = this;
-        rControls = new RhythmControls();
-        rControls.Rhythm.Switch.performed += SwitchToCombat;
-        EnableRhythmControls();
-        StartNotes();
+        rControls.Rhythm.ShowOff.performed += StartShowOff;
         StartBossNotes();
-        song.Play();
-    }
-
-    private void StartNotes()
-    {
-        for (int i = 0; i < 25; i++)
-        {
-            SpawnNote();
-        }
     }
 
     private void StartBossNotes()
@@ -43,16 +27,6 @@ public class BossRhythmManager : MonoBehaviour
             SpawnBossNote();
         }
         bossPlaying = true;
-    }
-
-    public void SpawnNote()
-    {
-        int ranNum = Random.Range(0, 4);
-        GameObject newArrow = Instantiate(arrows[ranNum], notes.transform);
-        Vector3 pos = newArrow.transform.localPosition;
-        pos.y += (noteNbr * distance);
-        newArrow.transform.localPosition = pos;
-        noteNbr++;
     }
 
     public void SpawnBossNote()
@@ -65,16 +39,6 @@ public class BossRhythmManager : MonoBehaviour
         bossNoteNbr++;
     }
 
-    public void NoteHit()
-    {
-        ATBBuildup();
-    }
-
-    public void NoteMissed()
-    {
-        
-    }
-
     public void BossNoteHit()
     {
         BossATBBuildup();
@@ -83,18 +47,6 @@ public class BossRhythmManager : MonoBehaviour
     public void BossNoteMissed()
     {
         
-    }
-
-    public void BombHit()
-    {
-        Debug.Log("Ya hit a bomb!");
-        if (atbCounter > 0)
-        {
-            atbCounter -= 1;
-            SetATB(atbCounter);
-            BossUIManager.uiManager.UpdateATBNumber(atbCounter, atbCounter + 1);
-        }
-        BossUIManager.uiManager.StartShake();
     }
 
     public void BossBombHit()
@@ -107,19 +59,9 @@ public class BossRhythmManager : MonoBehaviour
         }
     }
 
-    public void PlaceBomb()
-    {
-        notes.transform.GetChild(4).GetComponent<BPNoteObj>().SetAsBomb();
-    }
-
     public void PlaceBossBomb()
     {
         bossNotes.transform.GetChild(4).GetComponent<BossNoteObj>().SetAsBomb();
-    }
-
-    public void SetATB(int atb)
-    {
-        atbCounter = atb;
     }
 
     public void SetBossAtb(int atb)
@@ -127,42 +69,19 @@ public class BossRhythmManager : MonoBehaviour
         bossatbCounter = atb;
     }
 
-    public float GetTempo()
-    {
-        return tempo / 60;
-    }
-
-    public float GetMultiplier()
-    {
-        return multiplier;
-    }
-
     public bool IsBossRhythmPlaying()
     {
         return bossPlaying;
     }
 
-    private void EnableRhythmControls()
+    private void StartShowOff(InputAction.CallbackContext obj)
     {
-        for (int i = 0; i < activators.Length; i++)
+        if (atbCounter == 5)
         {
-            activators[i].SetActive(true);
-        }
-        rControls.Rhythm.Enable();
-    }
-
-    public void ContinueRhythm()
-    {
-        EnableRhythmControls();
-    }
-
-    private void SwitchToCombat(InputAction.CallbackContext obj)
-    {
-        if (atbCounter >= 1 && !ShowOffManager.soManager.IsShowingOff())
-        {
-            DisableRhythmControls();
-            BossBattleManager.bbManager.StartCombat(atbCounter);
-            BossUIManager.uiManager.ChangeSwitchDirection();
+            atbCounter = 0;
+            BossUIManager.uiManager.UpdateATBNumber(atbCounter, 5);
+            BossUIManager.uiManager.ShowYouCantPressNow();
+            BossUIManager.uiManager.StartShowOff();
         }
     }
 
@@ -179,28 +98,9 @@ public class BossRhythmManager : MonoBehaviour
         BossUIManager.uiManager.ChangeBossSwitchDirection();
     }
 
-    private void DisableRhythmControls()
+    public void BossDiedStopPlaying()
     {
-        for (int i = 0; i < activators.Length; i++)
-        {
-            activators[i].SetActive(false);
-        }
-        rControls.Rhythm.Disable();
-    }
-
-    private void ATBBuildup()
-    {
-        if (atbCounter < 5)
-        {
-            atbBuildCounter++;
-            if (atbBuildCounter == 14)
-            {
-                atbBuildCounter = 0;
-                atbCounter++;
-                BossUIManager.uiManager.UpdateATBNumber(atbCounter, atbCounter - 1);
-            }
-            BossUIManager.uiManager.UpdateATB(atbBuildCounter);
-        }
+        bossPlaying = false;
     }
 
     private void BossATBBuildup()

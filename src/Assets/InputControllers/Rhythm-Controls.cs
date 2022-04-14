@@ -57,6 +57,14 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShowOff"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae28d138-9606-4c8f-8fdc-4c854615c772"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -255,6 +263,28 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02dcdb21-8ee9-4ecb-9f0a-d99ea4c81efd"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowOff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84020dc2-dda0-4e2e-a52a-b38b6ec42fe6"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowOff"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1091,6 +1121,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         m_Rhythm_Up = m_Rhythm.FindAction("Up", throwIfNotFound: true);
         m_Rhythm_Right = m_Rhythm.FindAction("Right", throwIfNotFound: true);
         m_Rhythm_Switch = m_Rhythm.FindAction("Switch", throwIfNotFound: true);
+        m_Rhythm_ShowOff = m_Rhythm.FindAction("ShowOff", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_Attack = m_Battle.FindAction("Attack", throwIfNotFound: true);
@@ -1163,6 +1194,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Rhythm_Up;
     private readonly InputAction m_Rhythm_Right;
     private readonly InputAction m_Rhythm_Switch;
+    private readonly InputAction m_Rhythm_ShowOff;
     public struct RhythmActions
     {
         private @RhythmControls m_Wrapper;
@@ -1172,6 +1204,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         public InputAction @Up => m_Wrapper.m_Rhythm_Up;
         public InputAction @Right => m_Wrapper.m_Rhythm_Right;
         public InputAction @Switch => m_Wrapper.m_Rhythm_Switch;
+        public InputAction @ShowOff => m_Wrapper.m_Rhythm_ShowOff;
         public InputActionMap Get() { return m_Wrapper.m_Rhythm; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1196,6 +1229,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Switch.started -= m_Wrapper.m_RhythmActionsCallbackInterface.OnSwitch;
                 @Switch.performed -= m_Wrapper.m_RhythmActionsCallbackInterface.OnSwitch;
                 @Switch.canceled -= m_Wrapper.m_RhythmActionsCallbackInterface.OnSwitch;
+                @ShowOff.started -= m_Wrapper.m_RhythmActionsCallbackInterface.OnShowOff;
+                @ShowOff.performed -= m_Wrapper.m_RhythmActionsCallbackInterface.OnShowOff;
+                @ShowOff.canceled -= m_Wrapper.m_RhythmActionsCallbackInterface.OnShowOff;
             }
             m_Wrapper.m_RhythmActionsCallbackInterface = instance;
             if (instance != null)
@@ -1215,6 +1251,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Switch.started += instance.OnSwitch;
                 @Switch.performed += instance.OnSwitch;
                 @Switch.canceled += instance.OnSwitch;
+                @ShowOff.started += instance.OnShowOff;
+                @ShowOff.performed += instance.OnShowOff;
+                @ShowOff.canceled += instance.OnShowOff;
             }
         }
     }
@@ -1388,6 +1427,7 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         void OnUp(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
+        void OnShowOff(InputAction.CallbackContext context);
     }
     public interface IBattleActions
     {
