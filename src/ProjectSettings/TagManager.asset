@@ -18,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Hider
-  - 
+  - ShowOff
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: Notes
     uniqueID: 3201552385
+    locked: 0
+  - name: ShowOff
+    uniqueID: 2892461025
     locked: 0

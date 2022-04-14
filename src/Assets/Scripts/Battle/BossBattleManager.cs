@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,8 @@ public class BossBattleManager : MonoBehaviour
     public bool isCombat;
     private RhythmControls rControls;
     private Player player;
-    [SerializeField] private HealthBar playerhealth;
-    [SerializeField] private GameObject enemyHolder, target;
+    [SerializeField] private HealthBar playerhealth, bosshealth;
     private Boss boss;
-    private Vector3 enPos1 = new Vector3(-393f, 2f, 0f);
-    private Vector3 enPos2 = new Vector3(-632f, 219f, 0f);
-    private Vector3 enPos3 = new Vector3(-635f, -200f, 0f);
-    private Vector3 targetPos1 = new Vector3(-230f, 2f, 0f);
-    private Vector3 targetPos2 = new Vector3(-468f, 219f, 0f);
-    private Vector3 targetPos3 = new Vector3(-471f, -200f, 0f);
-    private int enemyCount, targetIndex;
 
     void Awake()
     {
@@ -26,10 +19,9 @@ public class BossBattleManager : MonoBehaviour
         rControls = new RhythmControls();
         isCombat = false;
         player = new Player(250, 250, 15, 10, 32, 12, playerhealth, true);
-        targetIndex = 0;
+        boss = new ManEater(bosshealth);
         rControls.Battle.Attack.performed += PerformAttack;
         rControls.Battle.Run.performed += RunAway;
-        rControls.Battle.Change.performed += ChangeTarget;
         rControls.Battle.Skills.performed += ChooseSkill;
         rControls.Battle.Switch.performed += SwitchToRhythm;
         rControls.Battle.Skill1.performed += UseSkill1;
@@ -72,7 +64,7 @@ public class BossBattleManager : MonoBehaviour
         rControls.Battle.SkillBack.Disable();
     }
 
-    public Entity GetBoss()
+    public Boss GetBoss()
     {
         return boss;
     }
@@ -85,7 +77,7 @@ public class BossBattleManager : MonoBehaviour
     private void SwitchToRhythm(InputAction.CallbackContext obj)
     {
         EndCombat();
-        RhythmManager.rManager.ContinueRhythm();
+        BossRhythmManager.brManager.ContinueRhythm();
         BossUIManager.uiManager.ChangeSwitchDirection();
     }
 
@@ -103,7 +95,7 @@ public class BossBattleManager : MonoBehaviour
     private void ChooseSkill(InputAction.CallbackContext obj)
     {
         BossUIManager.uiManager.SkillsPressed();
-        UIManager.uiManager.OpenSkillMenu();
+        BossUIManager.uiManager.OpenSkillMenu();
         DisableDefaultControls();
         EnableSkillControls();
     }
@@ -139,50 +131,23 @@ public class BossBattleManager : MonoBehaviour
         EnableDefaultControls();
     }
 
+    public void StartBossAttack(int bossATB)
+    {
+        boss.SetATB(bossATB);
+        StartCoroutine(BossAttacking());
+    }
+
+    private IEnumerator BossAttacking()
+    {
+        yield return new WaitForSeconds(1f);
+        boss.DoSkill();
+        yield return new WaitForSeconds(1f);
+        BossRhythmManager.brManager.BossResumePlaying();
+    }
+
     public void EndCombat()
     {
         DisableDefaultControls();
         isCombat = false;
-    }
-
-
-    public void RemoveDeadEnemy(Enemy deaded)
-    {
-        enemyCount--;
-        targetIndex = -1;
-        GameObject deadedEnemy = enemyHolder.transform.GetChild(deaded.indexNumber).gameObject;
-        deadedEnemy.transform.parent = null;
-        Destroy(deadedEnemy);
-        if (enemyCount > 0)
-        {
-            ChangeMethod();
-        }
-    }
-
-    private void ChangeTarget(InputAction.CallbackContext obj)
-    {
-        BossUIManager.uiManager.ChangePressed();
-        ChangeMethod();
-    }
-
-    private void ChangeMethod()
-    {
-        targetIndex++;
-        if (targetIndex == enemyCount)
-        {
-            targetIndex = 0;
-        }
-        switch (targetIndex)
-        {
-            case 0:
-                target.transform.localPosition = targetPos1;
-                break;
-            case 1:
-                target.transform.localPosition = targetPos2;
-                break;
-            case 2:
-                target.transform.localPosition = targetPos3;
-                break;
-        }
     }
 }

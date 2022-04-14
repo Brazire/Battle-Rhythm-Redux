@@ -6,20 +6,31 @@ using UnityEngine.UI;
 public class BossUIManager : MonoBehaviour
 {
     public static BossUIManager uiManager;
-    [SerializeField] private GameObject switchUi, atbUI, bossAtbUI, bossatbnumUi, atbnumUi, actionUI, skillSelectUI, skill1, skill2, skill3;
-    private Animator switchAnim;
+    [SerializeField] private GameObject switchUi, bossSwitchUi, atbUI, bossAtbUI, bossatbnumUi, atbnumUi, actionUI, skillSelectUI, skill1, skill2, skill3, comboNum, bossComboNum;
+    private Animator switchAnim, bossSwitchAnim;
     [SerializeField] private Sprite[] atbUiSprites = new Sprite[14];
     [SerializeField] private Sprite[] bossAtbUiSprites = new Sprite[14];
     [SerializeField] private Sprite[] actions = new Sprite[5];
     [SerializeField] private GameObject hider;
     [SerializeField] private GameObject camera;
+    [SerializeField] private ShowOffStart left, right;
+    [SerializeField] private ShowOffShow showCase;
     private bool facingLeft = false;
+    private bool facingRight = false;
     private float hideTimer = 0f;
+    private int halfCenter;
 
     private void Awake()
     {
         uiManager = this;
         switchAnim = switchUi.GetComponent<Animator>();
+        bossSwitchAnim = bossSwitchUi.GetComponent<Animator>();
+    }
+
+    public void StartShowOff()
+    {
+        left.StartShowOff();
+        right.StartShowOff();
     }
 
     private void Update()
@@ -32,6 +43,18 @@ public class BossUIManager : MonoBehaviour
         {
             hider.SetActive(false);
             hideTimer = 0f;
+        }
+    }
+
+    public void NotifyHalfCenter()
+    {
+        halfCenter++;
+        if (halfCenter == 2)
+        {
+            halfCenter = 0;
+            showCase.ShowCase();
+            left.ResetPosition();
+            right.ResetPosition();
         }
     }
 
@@ -64,6 +87,20 @@ public class BossUIManager : MonoBehaviour
         }
     }
 
+    public void ChangeBossSwitchDirection()
+    {
+        if (facingRight)
+        {
+            bossSwitchAnim.Play("Move-left");
+            facingRight = false;
+        }
+        else
+        {
+            bossSwitchAnim.Play("Move-right");
+            facingRight = true;
+        }
+    }
+
     public void SetSkillIcon(int number, Sprite icon)
     {
         switch (number)
@@ -82,14 +119,29 @@ public class BossUIManager : MonoBehaviour
 
     public void UpdateATBNumber(int number, int curNumber)
     {
-        atbnumUi.transform.GetChild(curNumber).gameObject.SetActive(false);
-        atbnumUi.transform.GetChild(number).gameObject.SetActive(true);
+        NumberUpdate(atbnumUi, number, curNumber);
     }
 
     public void UpdateBossATBNumber(int number, int curNumber)
     {
-        bossatbnumUi.transform.GetChild(curNumber).gameObject.SetActive(false);
-        bossatbnumUi.transform.GetChild(number).gameObject.SetActive(true);
+        NumberUpdate(bossatbnumUi, number, curNumber);
+    }
+
+
+    public void UpdateComboNumber(int number, int curNumber)
+    {
+        NumberUpdate(comboNum, number, curNumber);
+    }
+
+    public void UpdateBossComboNumber(int number, int curNumber)
+    {
+        NumberUpdate(bossComboNum, number, curNumber);
+    }
+
+    private void NumberUpdate(GameObject toUpdate, int number, int curNumber)
+    {
+        toUpdate.transform.GetChild(curNumber).gameObject.SetActive(false);
+        toUpdate.transform.GetChild(number).gameObject.SetActive(true);
     }
 
     public void HideNotes(float timer)

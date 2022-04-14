@@ -2,32 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : Entity
+public abstract class Boss : Entity
 {
+    public Attack baseAttack;
+    public Attack bskill2, bskill3, bskill4, uskill;
 
-
-    public Boss()
+    public void SetHealthBar()
     {
-
+        healthbar.SetMaxHealth(maxhp);
+        healthbar.SetHealth(hp);
     }
 
-    public override float CalculateAttack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Die()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void DoSkill();
+    public abstract bool ContinueAttack();
+    public abstract bool AbleToHitNote();
 
     public override void TakeDamage(float amount)
     {
-        throw new System.NotImplementedException();
+        hp -= amount;
+        if (amount < 0)
+        {
+            hp = 0;
+            Die();
+        }
+        healthbar.SetHealth(hp);
+        BossUIManager.uiManager.StartShake();
     }
 
     public override void UseATB(int amount)
     {
-        throw new System.NotImplementedException();
+        atb -= amount;
+        BossRhythmManager.brManager.SetBossAtb(atb);
+        BossUIManager.uiManager.UpdateBossATBNumber(atb, atb + amount);
     }
 }

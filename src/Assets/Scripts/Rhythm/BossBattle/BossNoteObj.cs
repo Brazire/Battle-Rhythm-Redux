@@ -4,43 +4,66 @@ using UnityEngine;
 
 public class BossNoteObj : MonoBehaviour
 {
-    private bool shouldBePressed;
+    private bool shouldBePressed, isBomb;
+    [SerializeField] private SpriteRenderer render;
 
     void Start()
     {
+        isBomb = false;
         shouldBePressed = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (shouldBePressed)
-        {
-            NotifyPresed();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "BossActivator")
         {
-            shouldBePressed = true;
+            if (BossRhythmManager.brManager.IsBossRhythmPlaying() && BossBattleManager.bbManager.GetBoss().AbleToHitNote())
+            {
+                NotifyPresed();
+            }
         }
-        if (collision.tag == "BossMissed")
+        else if (collision.tag == "BossMissed")
         {
             NotifyMissed();
         }
     }
 
+    public void SetAsBomb()
+    {
+        isBomb = true;
+        render.color = new Color(0f, 0f, 125f);
+    }
+
     private void NotifyMissed()
     {
-        BossRhythmManager.brManager.BossNoteMissed();
+        if (ShowOffManager.soManager.IsShowingOff())
+        {
+            ShowOffManager.soManager.BossNotifyMiss();
+        }
+        else
+        {
+            BossRhythmManager.brManager.BossNoteMissed();
+        }
         DestroyNote();
     }
 
     private void NotifyPresed()
     {
-        BossRhythmManager.brManager.BossNoteHit();
+        if (isBomb)
+        {
+            BossRhythmManager.brManager.BossBombHit();
+        }
+        else
+        {
+            if (ShowOffManager.soManager.IsShowingOff())
+            {
+                ShowOffManager.soManager.BossNotifyHit();
+            }
+            else
+            {
+                BossRhythmManager.brManager.BossNoteHit();
+            }
+        }
         DestroyNote();
     }
 
