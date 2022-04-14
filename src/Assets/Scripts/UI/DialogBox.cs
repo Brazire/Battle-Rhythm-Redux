@@ -191,7 +191,7 @@ public class DialogBox : MonoBehaviour
             return text;
 
         foreach (Match match in matches)
-            text = text.Replace(match.Value, PermManager.varDict[match.Value]);
+            text = text.Replace(match.Value, PermManager.pManager.varDict[match.Value]);
 
         return text;
     }

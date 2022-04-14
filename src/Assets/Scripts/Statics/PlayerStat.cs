@@ -8,6 +8,12 @@ public class PlayerStat
 
     public PlayerStat()
     {
+        maxHp = 250;
+        hp = 250;
+        strength = 15;
+        agility = 10;
+        mana = 32;
+        defense = 12;
         equipments = new Dictionary<ScriptableEquipment.EquipmentType, ScriptableEquipment>();
     }
 

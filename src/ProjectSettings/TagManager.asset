@@ -19,7 +19,7 @@ TagManager:
   - UI
   - Hider
   - ShowOff
-  - 
+  - EndMessage
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: ShowOff
     uniqueID: 2892461025
+    locked: 0
+  - name: EndMessage
+    uniqueID: 1307045419
     locked: 0

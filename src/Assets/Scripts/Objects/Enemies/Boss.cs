@@ -6,11 +6,18 @@ public abstract class Boss : Entity
 {
     public Attack baseAttack;
     public Attack bskill2, bskill3, bskill4, uskill;
+    private bool isDead;
 
     public void SetHealthBar()
     {
+        isDead = false;
         healthbar.SetMaxHealth(maxhp);
         healthbar.SetHealth(hp);
+    }
+
+    public bool CheckDead()
+    {
+        return isDead;
     }
 
     public abstract void DoSkill();
@@ -20,7 +27,7 @@ public abstract class Boss : Entity
     public override void TakeDamage(float amount)
     {
         hp -= amount;
-        if (amount < 0)
+        if (hp < 0)
         {
             hp = 0;
             Die();
@@ -34,5 +41,12 @@ public abstract class Boss : Entity
         atb -= amount;
         BossRhythmManager.brManager.SetBossAtb(atb);
         BossUIManager.uiManager.UpdateBossATBNumber(atb, atb + amount);
+    }
+
+    public override void Die()
+    {
+        isDead = true;
+        BossRhythmManager.brManager.BossDiedStopPlaying();
+        SharedBattleManager.sbManager.Victory();
     }
 }

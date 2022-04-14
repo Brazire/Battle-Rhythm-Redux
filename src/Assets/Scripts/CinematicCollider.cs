@@ -32,6 +32,11 @@ public class CinematicCollider : MonoBehaviour
 
     private void Start()
     {
+        if (PermManager.pManager.cinematicAlreadyPlayed.Contains(cinematicId))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         actionList = DialogReader.ActionsDict[cinematicId];
         dialogList = DialogReader.DialoguesDict[actionList.dialogId];
 
@@ -52,7 +57,7 @@ public class CinematicCollider : MonoBehaviour
         talkIndex = 0;
 
         GameObject.Find("Canvas").GetComponent<ToggleMenu>().ToggleDialog(true);
-        borderHeight = GameObject.Find("BottomBar").GetComponent<RectTransform>().rect.height * (1 / 1.3f);
+        borderHeight = GameObject.Find("BottomBar").GetComponent<RectTransform>().rect.height * 0.98f;
 
         dialogBox = GameObject.Find("DialogBoxP");
         dialogBox.GetComponent<RectTransform>().Translate(new Vector3(0, borderHeight, 0), Space.Self);
@@ -156,6 +161,9 @@ public class CinematicCollider : MonoBehaviour
         GameObject.Find("Canvas").GetComponent<ToggleMenu>().ToggleDialog(false);
 
         if (triggerOnce)
+        {
+            PermManager.pManager.cinematicAlreadyPlayed.Add(cinematicId);
             gameObject.SetActive(false);
+        }
     }
 }

@@ -5,6 +5,6 @@ public class ScriptablePotionAgility : ScriptableConsumable
 {
     public override void UseItem()
     {
-        PermManager.player.agility += Point;
+        PermManager.pManager.player.agility += Point;
     }
 }

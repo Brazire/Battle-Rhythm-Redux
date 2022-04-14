@@ -36,21 +36,30 @@ public class ShowOffManager : MonoBehaviour
         bossNotes.transform.SetParent(rhythmParent.transform);
         activators.transform.SetParent(rhythmParent.transform);
         bossActivators.transform.SetParent(rhythmParent.transform);
+        BossUIManager.uiManager.UpdateComboNumber(0, playerCombo);
+        BossUIManager.uiManager.UpdateBossComboNumber(0, bossCombo);
+        BossUIManager.uiManager.UpdateMaxNumber(0, maxCombo);
+        BossUIManager.uiManager.UpdateBossMaxNumber(0, bossMaxCombo);
         DamageSomeone();
+        bossCombo = 0;
+        playerCombo = 0;
+        maxCombo = 0;
+        bossMaxCombo = 0;
+        allNotes = 0;
         uiParent.SetActive(false);
     }
 
     private void DamageSomeone()
     {
-        Player player = BossBattleManager.bbManager.GetPlayer();
-        Boss boss = BossBattleManager.bbManager.GetBoss();
         if (bossMaxCombo > maxCombo)
         {
-            player.TakeDamage(player.GetMaxHp() / 2f);
+            BossUIManager.uiManager.ShowFailure();
+            BossBattleManager.bbManager.GetPlayer().TakeDamage(BossBattleManager.bbManager.GetPlayer().GetMaxHp() / 2f);
         }
         else if (maxCombo > bossMaxCombo)
         {
-            boss.TakeDamage(boss.GetMaxHp() / 2f);
+            BossUIManager.uiManager.ShowSuccess();
+            BossBattleManager.bbManager.GetBoss().TakeDamage(BossBattleManager.bbManager.GetBoss().GetMaxHp() / 2f);
         }
     }
 
@@ -64,6 +73,7 @@ public class ShowOffManager : MonoBehaviour
             if (maxCombo < playerCombo)
             {
                 maxCombo = playerCombo;
+                BossUIManager.uiManager.UpdateMaxNumber(maxCombo, maxCombo - 1);
             }
             CheckShowingOffEnd();
         }
@@ -78,6 +88,7 @@ public class ShowOffManager : MonoBehaviour
             if (bossMaxCombo < bossCombo)
             {
                 bossMaxCombo = bossCombo;
+                BossUIManager.uiManager.UpdateBossMaxNumber(bossMaxCombo, bossMaxCombo - 1);
             }
         }
     }

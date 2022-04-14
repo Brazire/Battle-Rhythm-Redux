@@ -5,6 +5,6 @@ public class ScriptablePotionStrength : ScriptableConsumable
 {
     public override void UseItem()
     {
-        PermManager.player.strength += Point;
+        PermManager.pManager.player.strength += Point;
     }
 }

@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossUIManager : MonoBehaviour
+public class BossUIManager : SharedUIManager
 {
     public static BossUIManager uiManager;
-    [SerializeField] private GameObject switchUi, bossSwitchUi, atbUI, bossAtbUI, bossatbnumUi, atbnumUi, actionUI, skillSelectUI, skill1, skill2, skill3, comboNum, bossComboNum;
-    private Animator switchAnim, bossSwitchAnim;
-    [SerializeField] private Sprite[] atbUiSprites = new Sprite[14];
+    [SerializeField] private GameObject bossSwitchUi, bossAtbUI, bossatbnumUi, comboNum, bossComboNum, maxNum, bossMaxNum, canPressNow, success, failure;
+    private Animator bossSwitchAnim;
     [SerializeField] private Sprite[] bossAtbUiSprites = new Sprite[14];
-    [SerializeField] private Sprite[] actions = new Sprite[5];
-    [SerializeField] private GameObject hider;
-    [SerializeField] private GameObject camera;
     [SerializeField] private ShowOffStart left, right;
     [SerializeField] private ShowOffShow showCase;
-    private bool facingLeft = false;
     private bool facingRight = false;
-    private float hideTimer = 0f;
     private int halfCenter;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         uiManager = this;
         switchAnim = switchUi.GetComponent<Animator>();
         bossSwitchAnim = bossSwitchUi.GetComponent<Animator>();
@@ -33,17 +28,33 @@ public class BossUIManager : MonoBehaviour
         right.StartShowOff();
     }
 
-    private void Update()
+    public void ShowSuccess()
     {
-        if (hideTimer > 0f)
+        success.SetActive(true);
+        StartCoroutine(ShowOffResult(success));
+    }
+
+    public void ShowFailure()
+    {
+        failure.SetActive(true);
+        StartCoroutine(ShowOffResult(failure));
+    }
+
+    private IEnumerator ShowOffResult(GameObject message)
+    {
+        message.SetActive(true);
+        SpriteRenderer renderer = message.GetComponent<SpriteRenderer>();
+        while (renderer.color.a < 1f)
         {
-            hideTimer -= 1 * Time.deltaTime;
+            renderer.color += new Color(0f, 0f, 0f, 0.05f);
+            message.transform.position += new Vector3(0.05f, 0f, 0f);
+            yield return new WaitForSeconds(0.01f);
         }
-        else if (hider.activeSelf)
-        {
-            hider.SetActive(false);
-            hideTimer = 0f;
-        }
+        renderer.color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(3f);
+        renderer.color = new Color(1f, 1f, 1f, 0);
+        message.transform.position = new Vector3(205, 60, 255);
+        message.SetActive(false);
     }
 
     public void NotifyHalfCenter()
@@ -58,33 +69,19 @@ public class BossUIManager : MonoBehaviour
         }
     }
 
-    public void StartShake()
+    public void ShowYouCanPressNow()
     {
-        camera.GetComponent<CameraShaker>().StartShake();
+        canPressNow.SetActive(true);
     }
 
-    public void UpdateATB(int number)
+    public void ShowYouCantPressNow()
     {
-        atbUI.GetComponent<Image>().sprite = atbUiSprites[number];
+        canPressNow.SetActive(false);
     }
 
     public void UpdateBossATB(int number)
     {
         bossAtbUI.GetComponent<Image>().sprite = bossAtbUiSprites[number];
-    }
-
-    public void ChangeSwitchDirection()
-    {
-        if (facingLeft)
-        {
-            switchAnim.Play("Move-right");
-            facingLeft = false;
-        }
-        else
-        {
-            switchAnim.Play("Move-Left");
-            facingLeft = true;
-        }
     }
 
     public void ChangeBossSwitchDirection()
@@ -99,27 +96,6 @@ public class BossUIManager : MonoBehaviour
             bossSwitchAnim.Play("Move-right");
             facingRight = true;
         }
-    }
-
-    public void SetSkillIcon(int number, Sprite icon)
-    {
-        switch (number)
-        {
-            case 1:
-                skill1.GetComponent<SpriteRenderer>().sprite = icon;
-                break;
-            case 2:
-                skill2.GetComponent<SpriteRenderer>().sprite = icon;
-                break;
-            case 3:
-                skill3.GetComponent<SpriteRenderer>().sprite = icon;
-                break;
-        }
-    }
-
-    public void UpdateATBNumber(int number, int curNumber)
-    {
-        NumberUpdate(atbnumUi, number, curNumber);
     }
 
     public void UpdateBossATBNumber(int number, int curNumber)
@@ -138,57 +114,13 @@ public class BossUIManager : MonoBehaviour
         NumberUpdate(bossComboNum, number, curNumber);
     }
 
-    private void NumberUpdate(GameObject toUpdate, int number, int curNumber)
+    public void UpdateMaxNumber(int number, int curNumber)
     {
-        toUpdate.transform.GetChild(curNumber).gameObject.SetActive(false);
-        toUpdate.transform.GetChild(number).gameObject.SetActive(true);
+        NumberUpdate(maxNum, number, curNumber);
     }
 
-    public void HideNotes(float timer)
+    public void UpdateBossMaxNumber(int number, int curNumber)
     {
-        hider.SetActive(true);
-        hideTimer = timer;
-    }
-
-    public void AttackPressed()
-    {
-        StartCoroutine(PressButton(actions[1], actions[0], actionUI));
-    }
-
-    public void SkillsLetGo()
-    {
-        actionUI.GetComponent<Image>().sprite = actions[0];
-    }
-
-    public void SkillsPressed()
-    {
-        actionUI.GetComponent<Image>().sprite = actions[4];
-    }
-
-    public void ChangePressed()
-    {
-        StartCoroutine(PressButton(actions[3], actions[0], actionUI));
-    }
-
-    public void RunPressed()
-    {
-        StartCoroutine(PressButton(actions[2], actions[0], actionUI));
-    }
-
-    public void OpenSkillMenu()
-    {
-        skillSelectUI.SetActive(true);
-    }
-
-    public void CloseSkillMenu()
-    {
-        skillSelectUI.SetActive(false);
-    }
-
-    private IEnumerator PressButton(Sprite pressed, Sprite baseSp, GameObject defaultgo)
-    {
-        defaultgo.GetComponent<Image>().sprite = pressed;
-        yield return new WaitForSeconds(0.3f);
-        defaultgo.GetComponent<Image>().sprite = baseSp;
+        NumberUpdate(bossMaxNum, number, curNumber);
     }
 }

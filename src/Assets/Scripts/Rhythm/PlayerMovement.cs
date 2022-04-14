@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
 	
@@ -8,16 +9,25 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField]
 	private Animator animator;
 	private RhythmControls rControls;
+	private float newVelocityX = 0f;
+	private float newVelocityY = 0f;
 
 	void Awake () {
 		Debug.Log("Starting movement");
+		PermManager.pManager.PlacePlayerBack();
 		rControls = new RhythmControls();
+		rControls.World.Horizontal.performed += LeftRightPressed;
+		rControls.World.Vertical.performed += UpDownPressed;
 
-		rControls.World.Horizontal.Enable();
-		rControls.World.Vertical.Enable();
+		rControls.World.Horizontal.canceled += LeftRightCancel;
+		rControls.World.Vertical.canceled += UpDownCancel;
+
+		EnableWalking();
 	}
 
-	public void EnableWalking()
+	void OnDestroy() => DisableWalking();
+
+    public void EnableWalking()
 	{
 		rControls.World.Horizontal.Enable();
 		rControls.World.Vertical.Enable();
@@ -35,37 +45,51 @@ public class PlayerMovement : MonoBehaviour {
 		animator.SetInteger("DirectionY", (int)direction.y);
 	}
 
-	void FixedUpdate () {
+	public void UpDownCancel(InputAction.CallbackContext obj)
+	{
+		animator.SetInteger("DirectionY", 0);
+		newVelocityY = 0;
+		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(newVelocityX, newVelocityY);
+	}
 
-		// Set lastest player position
+	public void LeftRightCancel(InputAction.CallbackContext obj)
+	{
+		animator.SetInteger("DirectionX", 0);
+		newVelocityX = 0;
+		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(newVelocityX, newVelocityY);
+	}
 
-		float moveHorizontal = rControls.World.Horizontal.ReadValue<float>();
+	public void UpDownPressed(InputAction.CallbackContext obj)
+	{
 		float moveVertical = rControls.World.Vertical.ReadValue<float>();
-
-		Vector2 currentVelocity = gameObject.GetComponent<Rigidbody2D> ().velocity;
-
-		float newVelocityX = 0f;
-		if (moveHorizontal < 0 && currentVelocity.x <= 0) {
-			newVelocityX = -speed - 150;
-			animator.SetInteger ("DirectionX", -1);
-		} else if (moveHorizontal > 0 && currentVelocity.x >= 0) {
-			newVelocityX = speed + 150;
-			animator.SetInteger ("DirectionX", 1);
-		} else {
-			animator.SetInteger ("DirectionX", 0);
-		}
-
-		float newVelocityY = 0f;
-		if (moveVertical < 0 && currentVelocity.y <= 0) {
+		Vector2 currentVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+		if (moveVertical < 0 && currentVelocity.y <= 0)
+		{
 			newVelocityY = -speed - 150;
-			animator.SetInteger ("DirectionY", -1);
-		} else if (moveVertical > 0 && currentVelocity.y >= 0) {
-			newVelocityY = speed + 150;
-			animator.SetInteger ("DirectionY", 1);
-		} else {
-			animator.SetInteger ("DirectionY", 0);
+			animator.SetInteger("DirectionY", -1);
 		}
+		else if (moveVertical > 0 && currentVelocity.y >= 0)
+		{
+			newVelocityY = speed + 150;
+			animator.SetInteger("DirectionY", 1);
+		}
+		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(newVelocityX, newVelocityY);
+	}
 
-		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (newVelocityX, newVelocityY);
+	public void LeftRightPressed(InputAction.CallbackContext obj)
+	{
+		float moveHorizontal = rControls.World.Horizontal.ReadValue<float>();
+		Vector2 currentVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+		if (moveHorizontal < 0 && currentVelocity.x <= 0)
+		{
+			newVelocityX = -speed - 150;
+			animator.SetInteger("DirectionX", -1);
+		}
+		else if (moveHorizontal > 0 && currentVelocity.x >= 0)
+		{
+			newVelocityX = speed + 150;
+			animator.SetInteger("DirectionX", 1);
+		}
+		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(newVelocityX, newVelocityY);
 	}
 }

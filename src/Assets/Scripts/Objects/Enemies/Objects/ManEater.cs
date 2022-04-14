@@ -68,9 +68,4 @@ public class ManEater : Boss
         }
         return false;
     }
-
-    public override void Die()
-    {
-        Debug.Log("BossDied");
-    }
 }

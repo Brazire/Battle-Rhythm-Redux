@@ -28,7 +28,13 @@ public class ToggleMenu : MonoBehaviour
 		rControls.World.Cancel.Enable();
 	}
 
-	private void CloseCurrent(InputAction.CallbackContext obj)
+    void OnDestroy()
+	{
+		rControls.World.Inventory.Disable();
+		rControls.World.Cancel.Disable();
+	}
+
+    private void CloseCurrent(InputAction.CallbackContext obj)
     {
         if (isInvActive)
         {
