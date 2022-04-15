@@ -42,7 +42,7 @@ public class Player : Entity
 
     public override void TakeDamage(float amount)
     {
-        hp -= amount;
+        hp -= (amount / (defense / 2));
         if (hp <= 0f)
         {
             hp = 1f;
@@ -65,6 +65,10 @@ public class Player : Entity
 
     public override void UseATB(int amount)
     {
+        if (atb == 5 && PermManager.pManager.CheckBossBattle())
+        {
+            BossUIManager.uiManager.ShowYouCantPressNow();
+        }
         atb -= amount;
         SharedRhythmManager.srManager.SetATB(atb);
         SharedUIManager.sUIManager.UpdateATBNumber(atb, atb + amount);

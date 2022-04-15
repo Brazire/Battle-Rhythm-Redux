@@ -10,6 +10,7 @@ public class SharedBattleManager : MonoBehaviour
     protected RhythmControls rControls;
     protected Player player;
     [SerializeField] protected HealthBar playerhealth;
+    private int moneyBag;
 
     protected virtual void Awake()
     {
@@ -66,6 +67,11 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.Skill2.Disable();
         rControls.Battle.Skill3.Disable();
         rControls.Battle.SkillBack.Disable();
+    }
+
+    public void ReadyMoney(int money)
+    {
+        moneyBag += money;
     }
 
     public Player GetPlayer()
@@ -132,6 +138,7 @@ public class SharedBattleManager : MonoBehaviour
     public void Victory()
     {
         FuckControls();
+        PermManager.pManager.GivePlayerMoney(moneyBag);
         SharedUIManager.sUIManager.StartVictory();
     }
 
@@ -150,6 +157,7 @@ public class SharedBattleManager : MonoBehaviour
 
     public void WeAllDie()
     {
+        PermManager.pManager.UpdateHealthValue(player.GetHp());
         PermManager.pManager.ExitCombat();
     }
 

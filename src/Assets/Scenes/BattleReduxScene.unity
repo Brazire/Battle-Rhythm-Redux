@@ -2477,7 +2477,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notes: {fileID: 946882524}
   multiplier: 4
-  tempo: 76
   distance: 74
   arrows:
   - {fileID: 6261154236255535265, guid: 5c3933cb3e7f9c84d9ca4c1bbe1a9150, type: 3}
@@ -2490,9 +2489,9 @@ MonoBehaviour:
   - {fileID: 297372608}
   - {fileID: 627464189}
   songs:
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
+  - {fileID: 8300000, guid: 6ba5bb161c592d545a58afa76c60851c, type: 3}
+  - {fileID: 8300000, guid: 2cbafa681e28fc44b9ce87e8a3224d44, type: 3}
+  - {fileID: 8300000, guid: 7c9b1d3eeda5f364091b9097545153c8, type: 3}
   song: {fileID: 2023026218}
 --- !u!1 &1583120661
 GameObject:

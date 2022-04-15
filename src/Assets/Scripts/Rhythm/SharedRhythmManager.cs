@@ -8,8 +8,9 @@ public class SharedRhythmManager : MonoBehaviour
     public static SharedRhythmManager srManager;
     [SerializeField] protected GameObject notes;
     protected RhythmControls rControls;
-    [SerializeField] protected float multiplier, tempo, distance;
+    [SerializeField] protected float multiplier, distance;
     protected int atbCounter, atbBuildCounter, noteNbr;
+    protected float tempo;
     [SerializeField] protected GameObject[] arrows = new GameObject[4];
     [SerializeField] protected GameObject[] activators = new GameObject[4];
     [SerializeField] protected AudioClip[] songs;
@@ -34,13 +35,16 @@ public class SharedRhythmManager : MonoBehaviour
             case 1:
             case 2:
                 song.clip = songs[0];
+                tempo = 76;
                 break;
             case 3:
             case 4:
                 song.clip = songs[1];
+                tempo = 90;
                 break;
             case 5:
                 song.clip = songs[2];
+                tempo = 115;
                 break;
         }
     }

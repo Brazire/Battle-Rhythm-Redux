@@ -71,6 +71,7 @@ public class Enemy : Entity
 
     public override void Die()
     {
+        SharedBattleManager.sbManager.ReadyMoney((int)(maxhp - 100f));
         BattleManagerRedux.bManager.RemoveDeadEnemy(this);
     }
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 	
@@ -8,6 +9,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField]
 	private Animator animator;
+
+	[SerializeField]
+	private Text hpText;
 	private RhythmControls rControls;
 	private float newVelocityX = 0f;
 	private float newVelocityY = 0f;
@@ -15,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Awake () {
 		Debug.Log("Starting movement");
 		PermManager.pManager.PlacePlayerBack();
+		PermManager.pManager.UpdatePlayerHealth();
 		rControls = new RhythmControls();
 		rControls.World.Horizontal.performed += LeftRightPressed;
 		rControls.World.Vertical.performed += UpDownPressed;
@@ -38,6 +43,11 @@ public class PlayerMovement : MonoBehaviour {
 		rControls.World.Horizontal.Disable();
 		rControls.World.Vertical.Disable();
 	}
+
+	public void UpdateHPText(float amount, float max)
+    {
+		hpText.text = amount + " / " + max;
+    }
 
 	public void MakePlayerMove(Vector3 direction)
     {

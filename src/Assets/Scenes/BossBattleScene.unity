@@ -250,7 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notes: {fileID: 1556454883}
   multiplier: 0
-  tempo: 76
   distance: 73.8
   arrows:
   - {fileID: 396892856434940134, guid: ef2b4427e58f3d745a5a91b831aaac27, type: 3}
@@ -263,9 +262,9 @@ MonoBehaviour:
   - {fileID: 257390281}
   - {fileID: 685892199}
   songs:
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
-  - {fileID: 8300000, guid: a02074c7ff70a604fb40de1714ce1202, type: 3}
+  - {fileID: 8300000, guid: 6ba5bb161c592d545a58afa76c60851c, type: 3}
+  - {fileID: 8300000, guid: 2cbafa681e28fc44b9ce87e8a3224d44, type: 3}
+  - {fileID: 8300000, guid: 7c9b1d3eeda5f364091b9097545153c8, type: 3}
   song: {fileID: 1389338496}
   bossNotes: {fileID: 385787568}
   bossArrows:
@@ -8780,7 +8779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1418314114
 RectTransform:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class BossBattleManager : SharedBattleManager
             case 2:
                 return new ManEater(bosshealth);
             case 3:
-                return new ManEater(bosshealth);
+                return new DestroyerOfNoobs(bosshealth);
         }
         return null;
     }

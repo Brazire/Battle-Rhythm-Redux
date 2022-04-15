@@ -30,6 +30,11 @@ public class PlayerStat
         equipments[equip.TypeEquipment] = equip;
     }
 
+    public void GiveMoney(int amount)
+    {
+        currentMoney += amount;
+    }
+
     public void RemoveEquipment(ScriptableEquipment.EquipmentType type)
     {
         var equip = equipments[type];

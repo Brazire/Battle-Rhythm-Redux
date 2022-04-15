@@ -46,6 +46,7 @@ public abstract class Boss : Entity
     public override void Die()
     {
         isDead = true;
+        SharedBattleManager.sbManager.ReadyMoney((int)(maxhp - 200f));
         BossRhythmManager.brManager.BossDiedStopPlaying();
         SharedBattleManager.sbManager.Victory();
     }

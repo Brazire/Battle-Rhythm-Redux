@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class PermManager : MonoBehaviour
 {
     public PlayerStat player;
-    private GameObject playerGo;
     private Vector3 playerPos;
 
     public Dictionary<string, string> varDict { get; private set; }
@@ -55,6 +53,21 @@ public class PermManager : MonoBehaviour
         }
     }
 
+    public void GivePlayerMoney(int amount)
+    {
+        player.GiveMoney(amount);
+    }
+
+    public void UpdatePlayerHealth()
+    {
+        GameObject.Find("Player").GetComponent<PlayerMovement>().UpdateHPText(player.hp, player.maxHp);
+    }
+
+    public void UpdateHealthValue(float value)
+    {
+        player.hp = value;
+    }
+
     public int GetSceneFlag()
     {
         return sceneFlag;
@@ -94,6 +107,7 @@ public class PermManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneFlag);
     }
+
     public List<ScriptableItem> GetAllShopItems() => shopItems;
 
     private IEnumerator LoadAllShopItems()
@@ -117,6 +131,7 @@ public class PermManager : MonoBehaviour
         {
             sceneFlag++;
         }
+        SetIsNotBossBattle();
         LetsLoadAScene();
     }
 
