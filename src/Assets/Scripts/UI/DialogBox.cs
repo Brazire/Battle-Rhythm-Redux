@@ -100,10 +100,13 @@ public class DialogBox : MonoBehaviour
         foreach(var choice in choices)
         {
             var newButton = DefaultControls.CreateButton(new DefaultControls.Resources());
+            newButton.GetComponent<RectTransform>().sizeDelta = new Vector2 (0, NameP.GetComponent<RectTransform>().rect.height * 0.8f);
             newButton.transform.parent = ChoiceLayout.transform;
-            newButton.GetComponentInChildren<Text>().text = choice.text;
 
-            if(choice.branchingId == 0)
+            newButton.GetComponentInChildren<Text>().text = choice.text;
+            newButton.GetComponentInChildren<Text>().fontSize = 20;
+
+            if (choice.branchingId == 0)
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(() => GameObject.Find("Canvas").GetComponent<ToggleMenu>().ToggleDialog(false));
             else
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(() =>

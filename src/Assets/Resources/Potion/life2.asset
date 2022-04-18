@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: HP Potion
   itemDescription: A potion that heal the player by 60 point.
-  sellingPrice: 5
-  buyingPrice: 5
+  sellingPrice: 10
+  buyingPrice: 10
   Point: 60

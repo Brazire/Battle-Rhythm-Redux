@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -157,7 +158,7 @@ public class InventoryMenu : MonoBehaviour
 
                 int itemIndex = Mathf.Clamp(newItem.transform.GetSiblingIndex(), 0, equipments.Count - 1);
                 if (equipments.Count > 0)
-                    EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(itemIndex + equipments.Count).gameObject);
+                    StartCoroutine(SelectItemAfterReload(itemIndex));
                 else
                     EventSystem.current.SetSelectedGameObject(oldTab);
             });
@@ -176,6 +177,12 @@ public class InventoryMenu : MonoBehaviour
         isLeft = !isLeft;
     }
 
+    private IEnumerator SelectItemAfterReload(int index)
+    {
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(index).gameObject);
+    }
+
     private void ConsumableSelected(GameObject itemObject, ScriptableItem item)
     {
         PermManager.pManager.player.UseItem(item);
@@ -185,10 +192,10 @@ public class InventoryMenu : MonoBehaviour
             consumables = PermManager.pManager.player.GetItems(ScriptableItem.ItemType.consumable);
             DisplayItems(consumables);
 
-            if(consumables.Count == 0)
+            if (consumables.Count == 0)
                 EventSystem.current.SetSelectedGameObject(oldTab);
             else
-                EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(0).gameObject);
+                StartCoroutine(SelectItemAfterReload(0));
         }
         else
         {

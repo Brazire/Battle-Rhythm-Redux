@@ -787,6 +787,30 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""ffdafacb-ad74-4cba-ab61-f9726a70ad81"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""RightShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddd36ac2-304b-4a5a-9032-4e6adebb8fce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""Validate"",
+                    ""type"": ""Button"",
+                    ""id"": ""38fd5c49-ddb2-4b8f-9198-858d2f77b8b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1119,6 +1143,39 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""712d251f-55bc-4947-8177-f84e0d2ebe5f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3476f0b8-bd98-431e-86ff-08ac07efaa02"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7d4da1b-e1b9-44aa-8635-1077ac993add"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Validate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1151,6 +1208,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         m_World_Horizontal = m_World.FindAction("Horizontal", throwIfNotFound: true);
         m_World_Vertical = m_World.FindAction("Vertical", throwIfNotFound: true);
         m_World_Cancel = m_World.FindAction("Cancel", throwIfNotFound: true);
+        m_World_LeftShoulder = m_World.FindAction("LeftShoulder", throwIfNotFound: true);
+        m_World_RightShoulder = m_World.FindAction("RightShoulder", throwIfNotFound: true);
+        m_World_Validate = m_World.FindAction("Validate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1375,6 +1435,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
     private readonly InputAction m_World_Horizontal;
     private readonly InputAction m_World_Vertical;
     private readonly InputAction m_World_Cancel;
+    private readonly InputAction m_World_LeftShoulder;
+    private readonly InputAction m_World_RightShoulder;
+    private readonly InputAction m_World_Validate;
     public struct WorldActions
     {
         private @RhythmControls m_Wrapper;
@@ -1384,6 +1447,9 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         public InputAction @Horizontal => m_Wrapper.m_World_Horizontal;
         public InputAction @Vertical => m_Wrapper.m_World_Vertical;
         public InputAction @Cancel => m_Wrapper.m_World_Cancel;
+        public InputAction @LeftShoulder => m_Wrapper.m_World_LeftShoulder;
+        public InputAction @RightShoulder => m_Wrapper.m_World_RightShoulder;
+        public InputAction @Validate => m_Wrapper.m_World_Validate;
         public InputActionMap Get() { return m_Wrapper.m_World; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1408,6 +1474,15 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Cancel.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
                 @Cancel.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
                 @Cancel.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnCancel;
+                @LeftShoulder.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnLeftShoulder;
+                @LeftShoulder.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnLeftShoulder;
+                @LeftShoulder.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnLeftShoulder;
+                @RightShoulder.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnRightShoulder;
+                @RightShoulder.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnRightShoulder;
+                @RightShoulder.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnRightShoulder;
+                @Validate.started -= m_Wrapper.m_WorldActionsCallbackInterface.OnValidate;
+                @Validate.performed -= m_Wrapper.m_WorldActionsCallbackInterface.OnValidate;
+                @Validate.canceled -= m_Wrapper.m_WorldActionsCallbackInterface.OnValidate;
             }
             m_Wrapper.m_WorldActionsCallbackInterface = instance;
             if (instance != null)
@@ -1427,6 +1502,15 @@ public class @RhythmControls : IInputActionCollection, IDisposable
                 @Cancel.started += instance.OnCancel;
                 @Cancel.performed += instance.OnCancel;
                 @Cancel.canceled += instance.OnCancel;
+                @LeftShoulder.started += instance.OnLeftShoulder;
+                @LeftShoulder.performed += instance.OnLeftShoulder;
+                @LeftShoulder.canceled += instance.OnLeftShoulder;
+                @RightShoulder.started += instance.OnRightShoulder;
+                @RightShoulder.performed += instance.OnRightShoulder;
+                @RightShoulder.canceled += instance.OnRightShoulder;
+                @Validate.started += instance.OnValidate;
+                @Validate.performed += instance.OnValidate;
+                @Validate.canceled += instance.OnValidate;
             }
         }
     }
@@ -1459,5 +1543,8 @@ public class @RhythmControls : IInputActionCollection, IDisposable
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnLeftShoulder(InputAction.CallbackContext context);
+        void OnRightShoulder(InputAction.CallbackContext context);
+        void OnValidate(InputAction.CallbackContext context);
     }
 }

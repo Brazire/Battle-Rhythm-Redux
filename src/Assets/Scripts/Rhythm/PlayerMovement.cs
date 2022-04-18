@@ -42,6 +42,11 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		rControls.World.Horizontal.Disable();
 		rControls.World.Vertical.Disable();
+		animator.SetInteger("DirectionX", 0);
+		animator.SetInteger("DirectionY", 0);
+		newVelocityX = 0;
+		newVelocityY = 0;
+		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(newVelocityX, newVelocityY);
 	}
 
 	public void UpdateHPText(float amount, float max)

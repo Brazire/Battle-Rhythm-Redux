@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
@@ -29,6 +31,7 @@ public class ShopMenu : MonoBehaviour
     private GameObject oldTab;
     private ColorBlock selectedColor;
     private ColorBlock unselectedColor;
+    private RhythmControls rControls;
 
     private string CURRENCY_NAME = "Gold";
 
@@ -43,11 +46,78 @@ public class ShopMenu : MonoBehaviour
     void Awake()
     {
         shopItems = PermManager.pManager.GetAllShopItems();
+        rControls = new RhythmControls();
+
+        rControls.World.LeftShoulder.started += LeftDecrement;
+        rControls.World.LeftShoulder.performed += HoldLeft;
+        rControls.World.LeftShoulder.canceled += StopHolding;
+
+        rControls.World.RightShoulder.started += RightIncrement;
+        rControls.World.RightShoulder.performed += HoldRight;
+        rControls.World.RightShoulder.canceled += StopHolding;
+
+        rControls.World.Validate.performed += GoToConfirm;
 
         oldTab = GameObject.Find("BuyB");
         unselectedColor = oldTab.GetComponent<Button>().colors;
         selectedColor = oldTab.GetComponent<Button>().colors;
         selectedColor.normalColor = SelectedButtonColor;
+    }
+
+    private void GoToConfirm(InputAction.CallbackContext obj)
+    {
+        if (EventSystem.current.currentSelectedGameObject == QuantityT)
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("ConfirmB"));
+    }
+
+    private void LeftDecrement(InputAction.CallbackContext obj)
+    {
+        int qty = int.Parse(QuantityT.GetComponent<InputField>().text) - 1;
+        QuantityT.GetComponent<InputField>().text = qty.ToString();
+        ValidateQuantity();
+    }
+
+    private void RightIncrement(InputAction.CallbackContext obj)
+    {
+        int qty = int.Parse(QuantityT.GetComponent<InputField>().text) + 1;
+        QuantityT.GetComponent<InputField>().text = qty.ToString();
+        ValidateQuantity();
+    }
+
+    private bool isHolded = false;
+
+    private void HoldLeft(InputAction.CallbackContext obj)
+    {
+        if (!isHolded)
+        {
+            isHolded = true;
+            StartCoroutine(IncrementOnHold(-1));
+        }
+    }
+
+    private void HoldRight(InputAction.CallbackContext obj)
+    {
+        if (!isHolded)
+        {
+            isHolded = true;
+            StartCoroutine(IncrementOnHold(1));
+        }
+    }
+
+    private void StopHolding(InputAction.CallbackContext obj)
+    {
+        isHolded = false;
+    }
+
+    IEnumerator IncrementOnHold(int value)
+    {
+        while (isHolded)
+        {
+            int qty = int.Parse(QuantityT.GetComponent<InputField>().text) + value;
+            QuantityT.GetComponent<InputField>().text = qty.ToString();
+            ValidateQuantity();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void OnEnable()
@@ -131,14 +201,19 @@ public class ShopMenu : MonoBehaviour
 
         ValidateQuantity();
         EventSystem.current.SetSelectedGameObject(QuantityT);
+        rControls.World.LeftShoulder.Enable();
+        rControls.World.RightShoulder.Enable();
+        rControls.World.Validate.Enable();
     }
 
     public bool IsConfirmMenuEnabled() => ConfirmMenu.activeSelf;
 
     public void CloseConfirm()
     {
+        rControls.World.LeftShoulder.Disable();
+        rControls.World.RightShoulder.Disable();
+        rControls.World.Validate.Disable();
         GetComponent<CanvasGroup>().interactable = true;
-        ConfirmMenu.SetActive(false);
 
         if (CurrentTab == SelectedTab.player && !playerItems.Contains(selectedItem))
         {
@@ -153,6 +228,8 @@ public class ShopMenu : MonoBehaviour
         }
         else
             EventSystem.current.SetSelectedGameObject(selectedObject);
+
+        ConfirmMenu.SetActive(false);
     }
 
     public void ConfirmClicked()

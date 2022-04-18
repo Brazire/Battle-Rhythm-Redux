@@ -6,6 +6,6 @@ public class ScriptablePotionMaxHealth : ScriptableConsumable
     public override void UseItem()
     {
         PermManager.pManager.player.maxHp += Point;
-        //CharactersPortraitUpdate.SetPortrait();
+        PermManager.pManager.UpdatePlayerHealth();
     }
 }
