@@ -16,6 +16,7 @@ public class ShowOffManager : MonoBehaviour
         playing = false;
     }
 
+    //Used to start the new mechanic
     public void StartShowingOff()
     {
         uiParent.SetActive(true);
@@ -27,6 +28,7 @@ public class ShowOffManager : MonoBehaviour
         rhythmParent.SetActive(false);
     }
 
+    //Used to return to normal combat
     public void StopShowingOff()
     {
         rhythmParent.SetActive(true);
@@ -49,6 +51,7 @@ public class ShowOffManager : MonoBehaviour
         uiParent.SetActive(false);
     }
 
+    //Decides who won the show off and damages the right party.
     private void DamageSomeone()
     {
         if (bossMaxCombo > maxCombo)
@@ -63,6 +66,7 @@ public class ShowOffManager : MonoBehaviour
         }
     }
 
+    // Defines what happens when the player hits a note
     public void NotifyHit()
     {
         if (playing)
@@ -79,6 +83,7 @@ public class ShowOffManager : MonoBehaviour
         }
     }
 
+    // Defines what happens when the boss hits a note
     public void BossNotifyHit()
     {
         if (playing)
@@ -93,6 +98,7 @@ public class ShowOffManager : MonoBehaviour
         }
     }
 
+    // Defines what happens when the player misses a note
     public void NotifyMiss()
     {
         if (playing)
@@ -104,6 +110,7 @@ public class ShowOffManager : MonoBehaviour
         }
     }
 
+    // Defines what happens when the boss misses a note
     public void BossNotifyMiss()
     {
         if (playing)
@@ -113,6 +120,7 @@ public class ShowOffManager : MonoBehaviour
         }
     }
 
+    //Used to define when the show off ends
     private void CheckShowingOffEnd()
     {
         if (allNotes == 15)

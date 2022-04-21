@@ -27,6 +27,7 @@ public class SharedRhythmManager : MonoBehaviour
         song.Play();
     }
 
+    //Choose song and set the tempo based on area
     protected void ChooseSong()
     {
         int scene = PermManager.pManager.GetSceneFlag();
@@ -49,6 +50,7 @@ public class SharedRhythmManager : MonoBehaviour
         }
     }
 
+    //Spawn the original notes
     protected void StartNotes()
     {
         for (int i = 0; i < 25; i++)
@@ -57,6 +59,7 @@ public class SharedRhythmManager : MonoBehaviour
         }
     }
 
+    //Spawns a single, random note objet
     public void SpawnNote()
     {
         int ranNum = Random.Range(0, 4);
@@ -97,6 +100,8 @@ public class SharedRhythmManager : MonoBehaviour
         return multiplier;
     }
 
+
+    //Enables controls for the rhythm section
     protected void EnableRhythmControls()
     {
         for (int i = 0; i < activators.Length; i++)
@@ -106,11 +111,13 @@ public class SharedRhythmManager : MonoBehaviour
         rControls.Rhythm.Enable();
     }
 
+    //Called when player switched from battle back to Rhythm
     public void ContinueRhythm()
     {
         EnableRhythmControls();
     }
 
+    //Disable controls for the rhythm section
     protected void DisableRhythmControls()
     {
         for (int i = 0; i < activators.Length; i++)
@@ -131,6 +138,7 @@ public class SharedRhythmManager : MonoBehaviour
         SharedUIManager.sUIManager.StartShake();
     }
 
+    //Switches to combat mode
     protected void SwitchToCombat(InputAction.CallbackContext obj)
     {
         if (atbCounter >= 1)
@@ -141,6 +149,7 @@ public class SharedRhythmManager : MonoBehaviour
         }
     }
 
+    //Builds up atb on each succesful hit
     protected void ATBBuildup()
     {
         if (atbCounter < 5)
@@ -160,6 +169,7 @@ public class SharedRhythmManager : MonoBehaviour
         }
     }
 
+    //Used to remove the ShowOffButton when in a boss battle
     private void TurnOnShowOffIndicator()
     {
         if (PermManager.pManager.CheckBossBattle())

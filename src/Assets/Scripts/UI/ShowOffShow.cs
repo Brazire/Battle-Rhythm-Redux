@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ShowOffShow : MonoBehaviour
 {
+    //Used to show the show off screen when activating the mechanic.
     private SpriteRenderer renderer;
-
+    
     public void ShowCase()
     {
         gameObject.SetActive(true);

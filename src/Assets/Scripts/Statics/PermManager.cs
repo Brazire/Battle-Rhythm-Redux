@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PermManager : MonoBehaviour
 {
+    //Permanant object used to manage scene changing and persistant data, like player stats and inventory
     public PlayerStat player;
     private Vector3 playerPos;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    //Base enemy Object, derives from Entity
     public float attackDamage;
     public Attack baseAttack, skill1, skill2;
     public int indexNumber;

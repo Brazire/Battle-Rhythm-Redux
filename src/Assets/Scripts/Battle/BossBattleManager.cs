@@ -18,6 +18,7 @@ public class BossBattleManager : SharedBattleManager
         rControls.Battle.Attack.performed += PerformAttack;
     }
 
+    //Decide which boss to play based on area
     private Boss ChooseBoss()
     {
         int boss = PermManager.pManager.GetBossNum();
@@ -38,18 +39,21 @@ public class BossBattleManager : SharedBattleManager
         return boss;
     }
 
+    // Perform bosses' attack
     private void PerformAttack(InputAction.CallbackContext obj)
     {
         BossUIManager.uiManager.AttackPressed();
         player.baseAttack.DoAction(boss, player);
     }
 
+    //Is called when the boss switches from rhythm mode to battle mode.
     public void StartBossAttack(int bossATB)
     {
         boss.SetATB(bossATB);
         StartCoroutine(BossAttacking());
     }
 
+    //Routine to delay the attack a bit
     private IEnumerator BossAttacking()
     {
         yield return new WaitForSeconds(1f);

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BossUIManager : SharedUIManager
 {
+    //UI manager used only when it's a boss battle.
     public static BossUIManager uiManager;
     [SerializeField] private GameObject bossSwitchUi, bossAtbUI, bossatbnumUi, comboNum, bossComboNum, maxNum, bossMaxNum, canPressNow, success, failure;
     private Animator bossSwitchAnim;
@@ -40,6 +41,7 @@ public class BossUIManager : SharedUIManager
         StartCoroutine(ShowOffResult(failure));
     }
 
+    //Used to show the result message after a show off
     private IEnumerator ShowOffResult(GameObject message)
     {
         message.SetActive(true);
@@ -57,6 +59,7 @@ public class BossUIManager : SharedUIManager
         message.SetActive(false);
     }
 
+    //Used to check if the two blocks that move in when starting the show off mechanic have reached the center
     public void NotifyHalfCenter()
     {
         halfCenter++;
@@ -69,11 +72,13 @@ public class BossUIManager : SharedUIManager
         }
     }
 
+    //Used to show you can use the show off mode now
     public void ShowYouCanPressNow()
     {
         canPressNow.SetActive(true);
     }
 
+    //Used to hide the show off mode button
     public void ShowYouCantPressNow()
     {
         canPressNow.SetActive(false);
@@ -84,6 +89,7 @@ public class BossUIManager : SharedUIManager
         bossAtbUI.GetComponent<Image>().sprite = bossAtbUiSprites[number];
     }
 
+    //Same as shared UIManager, but with the boss ui element.
     public void ChangeBossSwitchDirection()
     {
         if (facingRight)

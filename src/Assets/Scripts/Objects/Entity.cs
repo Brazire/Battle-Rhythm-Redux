@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Entity
 {
+    //Entity object, defines the basic factors of what an entity is. (Player, Enemies and Bosses are all entites)
     public HealthBar healthbar;
     protected int atb;
     protected float maxhp, hp, strength, agility, mana, defense;

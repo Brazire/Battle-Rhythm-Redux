@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
+
+    //Basic player Object, uses Entity.
     public Attack baseAttack;
     private PlayerSkill skill1, skill2, skill3;
     public List<Attack> skills = new List<Attack>();

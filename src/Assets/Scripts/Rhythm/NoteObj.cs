@@ -6,7 +6,7 @@ using System.Linq;
 
 public class NoteObj : MonoBehaviour
 {
-
+    //Base object used by notes
     public bool shouldBePressed, isEarly, isBomb;
     protected RhythmControls rControls;
     [SerializeField] private SpriteRenderer render;
@@ -17,6 +17,7 @@ public class NoteObj : MonoBehaviour
         rControls = new RhythmControls();
     }
 
+    //Called when the note button is pressed, checks if it should be pressed and notifies when a hit happens.
     protected void ButtonPressed(InputAction.CallbackContext obj)
     {
         if (shouldBePressed)
@@ -63,6 +64,7 @@ public class NoteObj : MonoBehaviour
         render.color = new Color(125f, 0f, 0f);
     }
 
+    //Calls the correct hit, (the show off one or the normal one)
     private void NotifyHit()
     {
         if (PermManager.pManager.CheckBossBattle() && ShowOffManager.soManager.IsShowingOff())

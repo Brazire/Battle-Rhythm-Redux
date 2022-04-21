@@ -74,6 +74,7 @@ public class BossRhythmManager : SharedRhythmManager
         return bossPlaying;
     }
 
+    //Used to start the show off mechanic
     private void StartShowOff(InputAction.CallbackContext obj)
     {
         if (atbCounter == 5)
@@ -85,6 +86,7 @@ public class BossRhythmManager : SharedRhythmManager
         }
     }
 
+    //Used when the boss switches to attack mode
     private void BossSwitchToCombat()
     {
         bossPlaying = false;
@@ -92,6 +94,7 @@ public class BossRhythmManager : SharedRhythmManager
         BossBattleManager.bbManager.StartBossAttack(bossatbCounter);
     }
 
+    //Used when the boss leaves attack mode
     public void BossResumePlaying()
     {
         bossPlaying = true;
@@ -103,6 +106,7 @@ public class BossRhythmManager : SharedRhythmManager
         bossPlaying = false;
     }
 
+    //Builds up boss's ATB.
     private void BossATBBuildup()
     {
         if (bossatbCounter < 5)

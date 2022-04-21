@@ -35,6 +35,7 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.SkillBack.performed += BackSkills;
     }
 
+    //Activate basic controls
     protected void EnableDefaultControls()
     {
         rControls.Battle.Attack.Enable();
@@ -44,6 +45,7 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.Switch.Enable();
     }
 
+    //Deactivate basic controls
     protected void DisableDefaultControls()
     {
         rControls.Battle.Attack.Disable();
@@ -53,6 +55,7 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.Switch.Disable();
     }
 
+    //Activate skill controls
     protected void EnableSkillControls()
     {
         rControls.Battle.Skill1.Enable();
@@ -61,6 +64,7 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.SkillBack.Enable();
     }
 
+    //Deactivate skill controls
     protected void DisableSkillControls()
     {
         rControls.Battle.Skill1.Disable();
@@ -69,6 +73,7 @@ public class SharedBattleManager : MonoBehaviour
         rControls.Battle.SkillBack.Disable();
     }
 
+    
     public void ReadyMoney(int money)
     {
         moneyBag += money;
@@ -79,6 +84,7 @@ public class SharedBattleManager : MonoBehaviour
         return player;
     }
 
+    //Method to switch back to rhythm mode.
     protected void SwitchToRhythm(InputAction.CallbackContext obj)
     {
         EndCombat();
@@ -91,6 +97,7 @@ public class SharedBattleManager : MonoBehaviour
         SharedUIManager.sUIManager.RunPressed();
     }
 
+    //Open skill menu
     protected void ChooseSkill(InputAction.CallbackContext obj)
     {
         SharedUIManager.sUIManager.SkillsPressed();
@@ -99,6 +106,7 @@ public class SharedBattleManager : MonoBehaviour
         EnableSkillControls();
     }
 
+    //Close skill menu
     protected void BackSkills(InputAction.CallbackContext obj)
     {
         SharedUIManager.sUIManager.CloseSkillMenu();
@@ -122,6 +130,7 @@ public class SharedBattleManager : MonoBehaviour
         player.UseSkill(3);
     }
 
+    //Start combat
     public void StartCombat(int playerATB)
     {
         player.SetATB(playerATB);
@@ -129,19 +138,22 @@ public class SharedBattleManager : MonoBehaviour
         EnableDefaultControls();
     }
 
+    //End combat section
     public void EndCombat()
     {
         DisableDefaultControls();
         isCombat = false;
     }
 
+    //Show victory screen
     public void Victory()
     {
         FuckControls();
         PermManager.pManager.GivePlayerMoney(moneyBag);
         SharedUIManager.sUIManager.StartVictory();
     }
-
+    
+    //Show defeat screen
     public void Defeat()
     {
         FuckControls();
@@ -149,12 +161,14 @@ public class SharedBattleManager : MonoBehaviour
         SharedUIManager.sUIManager.StartDefeat();
     }
 
+    //Deactivate all controls when combat ends
     private void FuckControls()
     {
         SharedRhythmManager.srManager.DeactivateAllControls();
         SharedBattleManager.sbManager.DeactivateAllControls();
     }
 
+    //End combat
     public void WeAllDie()
     {
         PermManager.pManager.UpdateHealthValue(player.GetHp());

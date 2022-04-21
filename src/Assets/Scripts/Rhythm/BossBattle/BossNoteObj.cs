@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossNoteObj : MonoBehaviour
 {
+    //Similar to NoteObj, but for the boss' notes
     private bool shouldBePressed, isBomb;
     [SerializeField] private SpriteRenderer render;
 

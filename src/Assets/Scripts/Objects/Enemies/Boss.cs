@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Boss : Entity
 {
+    //Base boss object, derives from Entity
     public Attack baseAttack;
     public Attack bskill2, bskill3, bskill4, uskill;
     private bool isDead;

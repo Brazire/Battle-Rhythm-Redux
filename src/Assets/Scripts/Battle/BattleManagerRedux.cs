@@ -41,7 +41,7 @@ public class BattleManagerRedux : SharedBattleManager
         player.baseAttack.DoAction(enemies[targetIndex], player);
     }
 
-
+    //Delete dead enemy object and remove the sprite.
     public void RemoveDeadEnemy(Enemy deaded)
     {
         enemyCount--;
@@ -67,6 +67,7 @@ public class BattleManagerRedux : SharedBattleManager
         ChangeMethod();
     }
 
+    //Used to place the target sprite
     private void ChangeMethod()
     {
         targetIndex++;
@@ -88,6 +89,7 @@ public class BattleManagerRedux : SharedBattleManager
         }
     }
 
+    //Used to shuffle enemy when one dies
     private void ResetEnemyPos()
     {
         for (int x = 1; x <= enemies.Count; x++)
@@ -136,6 +138,7 @@ public class BattleManagerRedux : SharedBattleManager
         }
     }
 
+    //Used to create an enemy GameObject and place it in the game world
     private void FindAndCreateEnemy(string enemyName, EnemySc enemySc)
     {
         GameObject enemyObj = Instantiate(Resources.Load("Prefabs/Enemies/"+enemyName)) as GameObject;

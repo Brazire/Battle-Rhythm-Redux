@@ -46,6 +46,7 @@ public class SharedUIManager : MonoBehaviour
         atbUI.GetComponent<Image>().sprite = atbUiSprites[number];
     }
 
+    //Used when switching between battle and rhythm mode
     public void ChangeSwitchDirection()
     {
         if (facingLeft)
@@ -60,6 +61,7 @@ public class SharedUIManager : MonoBehaviour
         }
     }
 
+    //Sets unique skill icon to the skill menu
     public void SetSkillIcon(int number, Sprite icon)
     {
         switch (number)
@@ -128,6 +130,7 @@ public class SharedUIManager : MonoBehaviour
         skillSelectUI.SetActive(false);
     }
 
+    //Victory fan fare
     public void StartVictory()
     {
         cleared.SetActive(true);
@@ -135,6 +138,7 @@ public class SharedUIManager : MonoBehaviour
         StartCoroutine(FanFare());
     }
 
+    //Defeat fan fare
     public void StartDefeat()
     {
         defeat.SetActive(true);
@@ -142,6 +146,7 @@ public class SharedUIManager : MonoBehaviour
         StartCoroutine(FanFare());
     }
 
+    //Routine to show the success message
     private IEnumerator FanFare()
     {
         while (endMessage.transform.localScale.x > 12)
@@ -153,6 +158,7 @@ public class SharedUIManager : MonoBehaviour
         SharedBattleManager.sbManager.WeAllDie();
     }
 
+    //Routine to delay button press
     private IEnumerator PressButton(Sprite pressed, Sprite baseSp, GameObject defaultgo)
     {
         defaultgo.GetComponent<Image>().sprite = pressed;
