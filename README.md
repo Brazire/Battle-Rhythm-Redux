@@ -5,6 +5,7 @@ Le système de combat a été entièrement refait. Le joueur doit accumuler des 
  - Changer de cible
  - Effectuer une attaque sur la cible
  - Sélectionner une compétence
+
 Des attaques spéciales comme cacher une partie du jeu de rythme et des notes piégées ont été ajouté aux ennemis pour nuire au joueur.
 
 ### Ennemi normal
