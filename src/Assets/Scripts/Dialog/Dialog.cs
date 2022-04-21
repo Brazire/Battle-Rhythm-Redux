@@ -29,6 +29,9 @@ public class Choice
     public string text;
 }
 
+/// <summary>
+/// This enum contains the name of all the npc. Is used to give an id to the npc.
+/// </summary>
 public enum NpcEnum
 {
     None,

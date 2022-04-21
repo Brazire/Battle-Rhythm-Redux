@@ -25,13 +25,14 @@ public class ShopMenu : MonoBehaviour
 
     private List<ScriptableItem> shopItems;
     private List<ScriptableItem> playerItems;
+    private RhythmControls rControls;
+    private bool isHolded = false;
+
     private GameObject selectedObject;
     private ScriptableItem selectedItem;
-
     private GameObject oldTab;
     private ColorBlock selectedColor;
     private ColorBlock unselectedColor;
-    private RhythmControls rControls;
 
     private string CURRENCY_NAME = "Gold";
 
@@ -43,6 +44,10 @@ public class ShopMenu : MonoBehaviour
         none
     }
 
+    /// <summary>
+    /// Awake get the list of items to sell, set the control for the gamepad, 
+    /// set the default Tab to Buy and set the colors for the selected and unselected tab.
+    /// </summary>
     void Awake()
     {
         shopItems = PermManager.pManager.GetAllShopItems();
@@ -64,12 +69,20 @@ public class ShopMenu : MonoBehaviour
         selectedColor.normalColor = SelectedButtonColor;
     }
 
+    /// <summary>
+    /// Method for the gamepad, allow to press Confirm
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
     private void GoToConfirm(InputAction.CallbackContext obj)
     {
         if (EventSystem.current.currentSelectedGameObject == QuantityT)
             EventSystem.current.SetSelectedGameObject(GameObject.Find("ConfirmB"));
     }
 
+    /// <summary>
+    /// Method for the gamepad, allow to buy or sell 1 less.
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
     private void LeftDecrement(InputAction.CallbackContext obj)
     {
         int qty = int.Parse(QuantityT.GetComponent<InputField>().text) - 1;
@@ -77,6 +90,10 @@ public class ShopMenu : MonoBehaviour
         ValidateQuantity();
     }
 
+    /// <summary>
+    /// Method for the gamepad, allow to buy or sell 1 more.
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
     private void RightIncrement(InputAction.CallbackContext obj)
     {
         int qty = int.Parse(QuantityT.GetComponent<InputField>().text) + 1;
@@ -84,8 +101,10 @@ public class ShopMenu : MonoBehaviour
         ValidateQuantity();
     }
 
-    private bool isHolded = false;
-
+    /// <summary>
+    /// Method for the gamepad, allow to buy or sell 1 less while the button is pressed.
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
     private void HoldLeft(InputAction.CallbackContext obj)
     {
         if (!isHolded)
@@ -95,6 +114,10 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method for the gamepad, allow to buy or sell 1 more while the button is pressed.
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
     private void HoldRight(InputAction.CallbackContext obj)
     {
         if (!isHolded)
@@ -104,11 +127,17 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
-    private void StopHolding(InputAction.CallbackContext obj)
-    {
-        isHolded = false;
-    }
+    /// <summary>
+    /// Method called when the button is released
+    /// </summary>
+    /// <param name="obj">The default Callback object</param>
+    private void StopHolding(InputAction.CallbackContext obj) => isHolded = false;
 
+    /// <summary>
+    /// Coroutine that add or remove a value while a button is pressed.
+    /// </summary>
+    /// <param name="value">The value to add or remove.</param>
+    /// <returns></returns>
     IEnumerator IncrementOnHold(int value)
     {
         while (isHolded)
@@ -120,6 +149,9 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get the items list of the player, set the menu on the Buy tab and set how much money the player currently have.
+    /// </summary>
     private void OnEnable()
     {
         playerItems = PermManager.pManager.player.GetAllItems(); 
@@ -130,8 +162,15 @@ public class ShopMenu : MonoBehaviour
         GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + PermManager.pManager.player.currentMoney;
     }
 
+    /// <summary>
+    /// Set the current tab to none when the script get disabled.
+    /// </summary>
     private void OnDisable() => CurrentTab = SelectedTab.none;
 
+    /// <summary>
+    /// Remove the old gameObject, create new gameObject with the list and set the height of the Content to allow scrolling.
+    /// </summary>
+    /// <param name="list">The list of items.</param>
     private void DisplayItems(List<ScriptableItem> list)
     {
         foreach (Transform child in Content.transform)
@@ -144,6 +183,10 @@ public class ShopMenu : MonoBehaviour
             (ItemBase.GetComponent<RectTransform>().rect.height + Content.GetComponent<VerticalLayoutGroup>().spacing) * list.Count);
     }
 
+    /// <summary>
+    /// Method that create a new button for the item and add it to the Content.
+    /// </summary>
+    /// <param name="item">The scriptableItem to create a button with.</param>
     public void CreateItemButton(ScriptableItem item)
     {
         GameObject newItem = Instantiate(ItemBase, Content.transform);
@@ -162,6 +205,10 @@ public class ShopMenu : MonoBehaviour
             newItem.transform.Find("QuantityT").GetComponent<Text>().text = item.buyingPrice + "$";
     }
 
+    /// <summary>
+    /// Method called when the Sell button is pressed. Set the current tab to player and display the player items to sell.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked.</param>
     public void ShowPlayerItem(GameObject button)
     {
         if (CurrentTab != SelectedTab.player)
@@ -172,6 +219,10 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method called when the Buy button is pressed. Set the current tab to shop and display the shop items to buy.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked.</param>
     public void ShowShopItem(GameObject button)
     {
         if (CurrentTab != SelectedTab.shop)
@@ -182,6 +233,10 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Change the color of the oldTab and the current tab to visually see which tab is currently selected.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked that will became the oldTab.</param>
     public void ToggleTab(GameObject button)
     {
         oldTab.GetComponent<Button>().colors = unselectedColor;
@@ -189,6 +244,10 @@ public class ShopMenu : MonoBehaviour
         oldTab = button;
     }
 
+    /// <summary>
+    /// Method that disable the list of items, display a Confirm popup and allow the player to choose 
+    /// the quantity of items to buy or sell. Also display the maximum of items the player can sell or buy.
+    /// </summary>
     public void ShowConfirm()
     {
         ConfirmMenu.SetActive(true);
@@ -206,8 +265,15 @@ public class ShopMenu : MonoBehaviour
         rControls.World.Validate.Enable();
     }
 
+    /// <summary>
+    /// Method used by ToggleMenu to know if the ConfirmMenu is currently displayed or not to know what to close.
+    /// </summary>
+    /// <returns>Return a bool to know if the Confirm popup is displayed or not.</returns>
     public bool IsConfirmMenuEnabled() => ConfirmMenu.activeSelf;
 
+    /// <summary>
+    /// Method that close the Confirm popup and select the right items.
+    /// </summary>
     public void CloseConfirm()
     {
         rControls.World.LeftShoulder.Disable();
@@ -232,6 +298,10 @@ public class ShopMenu : MonoBehaviour
         ConfirmMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// Method called when the Confirm button in the Confirm popup is pressed. 
+    /// Make sure there is actually a quantity selected and then redirect to buy or sell items.
+    /// </summary>
     public void ConfirmClicked()
     {
         var qty = int.Parse(QuantityT.GetComponent<InputField>().text);
@@ -249,6 +319,10 @@ public class ShopMenu : MonoBehaviour
             Debug.LogError("must buy more than 0 item ;P");
     }
 
+    /// <summary>
+    /// Method that sell items to the shop. Add the money to the player and remove the quantity of items.
+    /// </summary>
+    /// <param name="quantity">The quantity of items to sell</param>
     private void SellItem(int quantity)
     {
         PermManager.pManager.player.currentMoney += selectedItem.sellingPrice * quantity;
@@ -266,6 +340,10 @@ public class ShopMenu : MonoBehaviour
         GameObject.Find("MoneyT").GetComponent<Text>().text = CURRENCY_NAME + " : " + PermManager.pManager.player.currentMoney;
     }
 
+    /// <summary>
+    /// Method that buy item from the shop. Remove the cost from the player and add the quantity to the inventory.
+    /// </summary>
+    /// <param name="quantity">The quantity of items to buy</param>
     private void BuyItem(int quantity)
     {
         var cost = selectedItem.buyingPrice * quantity;
@@ -279,6 +357,9 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method called everytime the quantity is updated. Make sure the quantity is a quantity the player can afford and change it if not.
+    /// </summary>
     public void ValidateQuantity()
     {
         if (CurrentTab == SelectedTab.player)

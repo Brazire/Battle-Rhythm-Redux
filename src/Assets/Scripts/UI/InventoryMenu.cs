@@ -64,6 +64,10 @@ public class InventoryMenu : MonoBehaviour
 
     private bool IsEquipment => CurrentTab == SelectedTab.equipment;
 
+    /// <summary>
+    /// Change the color of the oldTab and the current tab to visually see which tab is currently selected.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked that will became the oldTab.</param>
     public void ToggleTab(GameObject button)
     {
         oldTab.GetComponent<Button>().colors = unselectedColor;
@@ -71,6 +75,10 @@ public class InventoryMenu : MonoBehaviour
         oldTab = button;
     }
 
+    /// <summary>
+    /// Method called when the Equipment tab is selected. Change the selected tab and display the list of equipment.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked.</param>
     public void ShowEquipment(GameObject button)
     {
         if (!IsEquipment)
@@ -81,6 +89,10 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method called when the Consumable tab is selected. Change the selected tab and display the list of consumable items.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked.</param>
     public void ShowConsumable(GameObject button)
     {
         if (CurrentTab != SelectedTab.consumable)
@@ -91,6 +103,10 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method called when the Key item tab is selected. Change the selected tab and display the list of key item.
+    /// </summary>
+    /// <param name="button">The gameObject that was clicked.</param>
     public void ShowKeyItem(GameObject button)
     {
         if (CurrentTab != SelectedTab.keyItem)
@@ -101,6 +117,11 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method that remove the old gameObject still displayed and create new gameObject for the items. If 
+    /// the tab is equipment, it also add button for each type of equipment. The height of content is resized to allow scrolling.
+    /// </summary>
+    /// <param name="lists">The list of selectableItem to display.</param>
     private void DisplayItems(List<ScriptableItem> lists)
     {
         foreach (Transform child in LeftSide.transform)
@@ -121,6 +142,10 @@ public class InventoryMenu : MonoBehaviour
                 CreateEquipmentButton(type);
     }
 
+    /// <summary>
+    /// Method that create the gameObject for each type of equipment, selecting it will remove the equipment assigned there.
+    /// </summary>
+    /// <param name="type">The list of all type of equipment.</param>
     private void CreateEquipmentButton(ScriptableEquipment.EquipmentType type)
     {
         GameObject newItem;
@@ -144,6 +169,10 @@ public class InventoryMenu : MonoBehaviour
             (PermManager.pManager.player.equipments.ContainsKey(type) ? " : " + PermManager.pManager.player.equipments[type].itemName : " : ");
     }
 
+    /// <summary>
+    /// Method that create a button of a ScriptableItem, if it's an equipment, it will get equipped and a consumable will be consumed!!
+    /// </summary>
+    /// <param name="item">The ScriptableItem to display.</param>
     public void CreateItemButton(ScriptableItem item)
     {
         GameObject newItem;
@@ -177,12 +206,22 @@ public class InventoryMenu : MonoBehaviour
         isLeft = !isLeft;
     }
 
+    /// <summary>
+    /// Coroutine that wait the end of frame before selecting a gameObject, since it was keeping not yet destroyed gameObject.
+    /// </summary>
+    /// <param name="index">The index of the item to select.</param>
     private IEnumerator SelectItemAfterReload(int index)
     {
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(LeftSide.transform.GetChild(index).gameObject);
     }
 
+    /// <summary>
+    /// Method called when a consumable item is clicked. It will call the UseItem method from ScriptableObject and 
+    /// then remove 1 from the quantity or reload the items.
+    /// </summary>
+    /// <param name="itemObject">The gameObject of the item that was clicked</param>
+    /// <param name="item"></param>
     private void ConsumableSelected(GameObject itemObject, ScriptableItem item)
     {
         PermManager.pManager.player.UseItem(item);

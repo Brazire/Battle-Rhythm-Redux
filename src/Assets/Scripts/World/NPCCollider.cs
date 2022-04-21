@@ -27,6 +27,10 @@ public class NPCCollider : MonoBehaviour
         rControls.World.Interraction.performed += StartConversation;
     }
 
+    /// <summary>
+    /// If the npc have 2 or more point and they can walk (will stop walking when they got an action in a cinematic), 
+    /// they will loop through those points to walk.
+    /// </summary>
     void Update()
     {
         if (walkingPoints != null && walkingPoints.Count > 1 && canWalk)
@@ -37,18 +41,30 @@ public class NPCCollider : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The player is in the zone to talk with this npc.
+    /// </summary>
+    /// <param name="col">Default Collider2D param.</param>
     void OnTriggerEnter2D(Collider2D col)
     {
         canWalk = false;
         rControls.World.Interraction.Enable();
     }
 
+    /// <summary>
+    /// The player got out of the zone to talk with this npc.
+    /// </summary>
+    /// <param name="col">Default Collider2D param.</param>
     void OnTriggerExit2D(Collider2D col)
     {
         canWalk = true;
         rControls.World.Interraction.Disable();
     }
 
+    /// <summary>
+    /// The method called to start a conversation with a npc. It will open the dialogBox and decide which dialog to display.
+    /// </summary>
+    /// <param name="obj"></param>
     private void StartConversation(InputAction.CallbackContext obj)
     {
         if (DialogBox.isFree && GameObject.Find("Canvas").GetComponent<ToggleMenu>().IsDialogPossible)

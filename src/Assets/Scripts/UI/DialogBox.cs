@@ -47,6 +47,9 @@ public class DialogBox : MonoBehaviour
         CinematicNext
     }
 
+    /// <summary>
+    /// Set the value at the starting value.
+    /// </summary>
     private void OnEnable()
     {
         CurrentStatus = Status.Starting;
@@ -55,9 +58,16 @@ public class DialogBox : MonoBehaviour
         isCinematic = false;
     }
 
+    /// <summary>
+    /// Tell that the dialogBox is not used anymore.
+    /// </summary>
     private void OnDisable() => isFree = true;
 
-    // Methode called when the player click in the dialogBox
+    /// <summary>
+    /// Method called when the player click in the dialogBox, either to display the next text or to skip the letter-by-letter display. 
+    /// If it's from a cinematic, it changes the status to give control back to the cinematic, 
+    /// if it reach the end of the dialog, either display choices if exists or close the dialogBox.
+    /// </summary>
     public void NextText()
     {
         switch (CurrentStatus)
@@ -91,6 +101,10 @@ public class DialogBox : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method that display the choice a player can make at the end of a dialog. It remove the old choices before 
+    /// creating the new one. Select the first one by default. When clicking a choice, it either start a new dialogs or close.
+    /// </summary>
     private void DisplayChoice()
     {
         foreach (Transform child in ChoiceLayout.transform)
@@ -126,7 +140,11 @@ public class DialogBox : MonoBehaviour
         ChoiceLayout.SetActive(true);
     }
 
-    // Methode to use at the start of a conversation.
+    /// <summary>
+    /// Method that start a conversation with a npc.
+    /// </summary>
+    /// <param name="dialog">The dialog that contains the list of text to display and the choices to choose from.</param>
+    /// <param name="npc">The npc object the player is talking to.</param>
     public void DisplayTexts(Dialog dialog, NPCCollider npc)
     {
         currentNpc = npc;
@@ -148,6 +166,10 @@ public class DialogBox : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(Text.transform.parent.gameObject);
     }
 
+    /// <summary>
+    /// The method used by the cinematic to display one text.
+    /// </summary>
+    /// <param name="talk">The talk object contains the text to display.</param>
     public void DisplayCinematicText(Talk talk)
     {
         talks = new List<Talk>() { talk };
@@ -162,7 +184,9 @@ public class DialogBox : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(Text.transform.parent.gameObject); 
     }
 
-    // Coroutine that display the text letter-by-letter
+    /// <summary>
+    /// Coroutine that display the text letter-by-letter.
+    /// </summary>
     private IEnumerator PrintText()
     {
         if (talks[index].npcId == NpcEnum.None)
@@ -186,6 +210,11 @@ public class DialogBox : MonoBehaviour
         CurrentStatus = Status.Completed;
     }
 
+    /// <summary>
+    /// Method used to add variable text in a string.
+    /// </summary>
+    /// <param name="text">The string to replace the var with the actual value.</param>
+    /// <returns></returns>
     public static string ReplaceTextWithVar(string text)
     {
         Regex rgx = new Regex("%[A-Za-z]+%");
@@ -199,6 +228,11 @@ public class DialogBox : MonoBehaviour
         return text;
     }
 
+    /// <summary>
+    /// Method used to replace symbol from a dict with html tags to display color or effect on the text.
+    /// </summary>
+    /// <param name="sentence">The string to replace symbol with html things <b>like that</b></param>
+    /// <returns></returns>
     private string Convert(string sentence)
     {
         foreach (var regex in regexDict)

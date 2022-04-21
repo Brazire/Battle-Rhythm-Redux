@@ -30,6 +30,9 @@ public class CinematicCollider : MonoBehaviour
         public Vector3 startingPos;
     }
 
+    /// <summary>
+    /// Verify if the cinematic should be enabled or not, load the action and text.
+    /// </summary>
     private void Start()
     {
         if (PermManager.pManager.cinematicAlreadyPlayed.Contains(cinematicId))
@@ -51,6 +54,11 @@ public class CinematicCollider : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method is the start of a cinematic. It set the index to 0, keep the current 
+    /// position of npc, enable and setup the DialogBox and make the black border apprear.
+    /// </summary>
+    /// <param name="col">Default Collider2D</param>
     void OnTriggerEnter2D(Collider2D col)
     {
         actionIndex = 0;
@@ -66,6 +74,9 @@ public class CinematicCollider : MonoBehaviour
         StartCoroutine(DisplayBlackBorder());
     }
 
+    /// <summary>
+    /// Coroutine that make the black border show up on screen.
+    /// </summary>
     private IEnumerator DisplayBlackBorder()
     {
         var border = GameObject.Find("Blackbar").GetComponent<RectTransform>().localScale;
@@ -79,6 +90,10 @@ public class CinematicCollider : MonoBehaviour
         ExecuteAction(actionList.actions[actionIndex]);
     }
 
+    /// <summary>
+    /// Start a coroutine depending if the action is an action or a text to display.
+    /// </summary>
+    /// <param name="action"></param>
     private void ExecuteAction(Action action)
     {
         if (action.isAction)
@@ -87,6 +102,9 @@ public class CinematicCollider : MonoBehaviour
             StartCoroutine(Dialog());
     }
 
+    /// <summary>
+    /// Either launch the next action or finish the cinematic by making the black border disapear.
+    /// </summary>
     private void NextAction()
     {
         actionIndex++;
@@ -96,6 +114,9 @@ public class CinematicCollider : MonoBehaviour
             StartCoroutine(RemoveBlackBorder());
     }
 
+    /// <summary>
+    /// Coroutine that make the player or an NPC walk or run somewhere.
+    /// </summary>
     private IEnumerator Action()
     {
         var action = actionList.actions[actionIndex];
@@ -127,6 +148,9 @@ public class CinematicCollider : MonoBehaviour
         NextAction();
     }
 
+    /// <summary>
+    /// Coroutine that display text in the dialogBox, wait until the player click on the box.
+    /// </summary>
     private IEnumerator Dialog()
     {
         dialogBox.SetActive(true);
@@ -140,6 +164,10 @@ public class CinematicCollider : MonoBehaviour
         NextAction();
     }
 
+    /// <summary>
+    /// Coroutine that make the black border disapear and reset the DialogBox and the npc position. 
+    /// Disable the gameObject if supposed to execute only once.
+    /// </summary>
     private IEnumerator RemoveBlackBorder()
     {
         var border = GameObject.Find("Blackbar").GetComponent<RectTransform>().localScale;

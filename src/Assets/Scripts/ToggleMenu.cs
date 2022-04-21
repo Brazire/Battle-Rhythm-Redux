@@ -18,6 +18,9 @@ public class ToggleMenu : MonoBehaviour
 	private bool isDialogActive = false;
 	private RhythmControls rControls;
 
+	/// <summary>
+	/// Awake method that set and enable method on controls.
+	/// </summary>
 	void Awake()
     {
 		rControls = new RhythmControls();
@@ -34,6 +37,11 @@ public class ToggleMenu : MonoBehaviour
 		rControls.World.Cancel.Disable();
 	}
 
+	/// <summary>
+	/// Method that close the current menu displayed and give back the controls to the player avatar. 
+	/// If the Confirm menu from the shop is displayed, only close that.
+	/// </summary>
+	/// <param name="obj">The default Callback object</param>
     private void CloseCurrent(InputAction.CallbackContext obj)
     {
         if (isInvActive)
@@ -61,6 +69,10 @@ public class ToggleMenu : MonoBehaviour
 		}
     }
 
+	/// <summary>
+	/// Method to enable or disable the Inventory if no other menu is currently enabled. It also prevent the player avatar to walk while active.
+	/// </summary>
+	/// <param name="obj">The default Callback object</param>
 	private void ToggleInventory(InputAction.CallbackContext obj)
     {
 		if (!isShopActive && !isDialogActive)
@@ -76,6 +88,10 @@ public class ToggleMenu : MonoBehaviour
 
 	public bool IsDialogPossible => (!isShopActive && !isInvActive);
 
+	/// <summary>
+	/// Method to enable or disable the DialogBox if no other menu is currently enabled. It also prevent the player avatar to walk while active.
+	/// </summary>
+	/// <param name="v">this is a bool that say to set it to active or not.</param>
 	public void ToggleDialog(bool v)
 	{
 		if (!isShopActive && !isInvActive)
@@ -89,6 +105,9 @@ public class ToggleMenu : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Method to enable or disable the shop if no other menu is currently enabled. It also prevent the player avatar to walk while active.
+	/// </summary>
 	public void OpenShop()
 	{
 		if (!isInvActive && !isDialogActive)
@@ -102,6 +121,10 @@ public class ToggleMenu : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// I think this method is not used anymore. It used to open the shop.
+	/// </summary>
+	/// <param name="obj">The default Callback object</param>
 	private void ToggleShop(InputAction.CallbackContext obj)
 	{
 		if (!isInvActive && !isDialogActive)

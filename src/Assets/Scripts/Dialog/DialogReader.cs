@@ -12,6 +12,9 @@ public class DialogReader : MonoBehaviour
     public static Dictionary<int, Dialog> DialoguesDict { get; private set; }
     public static Dictionary<int, Cinematic> ActionsDict { get; private set; }
 
+    /// <summary>
+    /// Load 2 .json file, one for the cinematic and the other for the dialog.
+    /// </summary>
     void Awake()
     {
         DialoguesDict = new Dictionary<int, Dialog>();
