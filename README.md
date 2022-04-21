@@ -11,9 +11,9 @@ Des attaques spéciales comme cacher une partie du jeu de rythme et des notes pi
 3 types d'ennemi différents avec leur propre sprite ont été ajouté. Les ennemis attaquent le joueur après un certain temps à intervalles réguliers.
 
 Les ennemis sont organisés de cette manière:
-    Chaque ennemi est un Entity, qui permet de les instancier dans le même parent.
-    Chaque ennemi détient des attaques qu'il peut exécuter.
-    Un ennemi peut exécuter des attaques toutes les quelques secondes, un temps variant selon l'ennemi.
+ - Chaque ennemi est un Entity, qui permet de les instancier dans le même parent.
+ - Chaque ennemi détient des attaques qu'il peut exécuter.
+ - Un ennemi peut exécuter des attaques toutes les quelques secondes, un temps variant selon l'ennemi.
 
 ### Boss
 2 boss avec le même sprite, mais avec des attaques uniques ont été ajouté. Chacun des boss a un IA qui joue lui aussi au jeu de rythme en même temps que le joueur. Les boss doivent aussi accumuler des points avant de pouvoir faire des actions.
@@ -39,7 +39,7 @@ La possibilité d'avoir des cinématiques a été ajoutée. Une cinématique est
 
 ## À venir
  - Revoir le système de rythme pour:
-  - Ajouter des types de notes
-  - Revoir comment suivre le rythme de la chanson.
-  - Permettre d'avoir des fichiers de notes pour chaque chanson et d'avoir plus de contrôles sur les notes.
+   - Ajouter des types de notes
+   - Revoir comment suivre le rythme de la chanson.
+   - Permettre d'avoir des fichiers de notes pour chaque chanson et d'avoir plus de contrôles sur les notes.
  - Ajouter un tutoriel au mode de combat pour expliquer au joueur les différentes mécaniques.
